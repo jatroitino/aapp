@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>GolfinUp</title>
+	
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+    </script>
+	
+</head>
+
+<body id="stats">
+    <div class="app container">
+		<div class="row">
+			<div class="col-12">
+					<h2><img src="img/icono-stats.svg" />   Stats</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12" id="sgtotal"></div>
+		</div>
+    </div>
+<footer class="fixed-bottom">
+	<div class="container-fluid">
+		<div class="col-3 ">
+			<a href="home.html">
+				<img src="img/home_inactive.svg"><br>Dashboard
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="play.html">
+				<img src="img/input_inactive.svg"><br>Input
+			</a>
+		</div>
+		<div class="col-3 active">
+			<a href="stats.html">
+				<img src="img/stats.svg"><br>Stats
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="ajustes.html">
+				<img src="img/ajustes_inactive.svg"><br>Config.
+			</a>
+		</div>
+	</div>
+</footer>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		var chart_data;
+		var chart_data1;
+		var chart_data2;
+		var chart_data3;
+		$(document).ready(function(){
+			getStats();
+		});
+		
+		function getStats(){
+		
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/get_sg',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'units':window.localStorage.getItem("units")
+				},
+				dataType: 'json',
+				success: function(response){
+					console.log(response.chart);
+					$('#sgtotal').html(response.html);
+					chart_data = response.chart;
+					chart_data1 = response.chart1;
+					chart_data2 = response.chart2;
+					chart_data3 = response.chart3;
+					google.charts.setOnLoadCallback(drawChart);
+					$('.subchart').hide();
+					
+					$('#accordiong .collapse').on('hidden.bs.collapse', function (el) {
+					//console.log(el.target);
+						if ($(el.target).attr('id') == 'collapseg0') return;
+						if ($('#accordiong .show').length == 0){
+							$('#collapseg0').collapse('show');
+						}
+					})
+
+				}
+			});
+		}				
+
+		function deleteRound(round)
+		{
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/delete_round',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'round':round
+				},
+				dataType: 'json',
+				success: function(response){
+					getStats();
+				}
+			});
+		}
+		
+		
+		function drawChart() {
+			$.each( chart_data, function( index, value ){
+				var vData=[];
+				
+				$.each( value, function( i, v ){
+					if (i != 'TC') {
+						if (v > 0){
+							vData.push([i,v,'color:#35e37c']);
+						} else {
+							vData.push([i,v,'color:#ff4768']);
+						}
+					}
+				})
+				 var data = new google.visualization.DataTable();
+				  data.addColumn('string', 'Element');
+				  data.addColumn('number', 'Value');
+				  data.addColumn({role: 'style', type: 'string'});
+
+				  data.addRows(vData);
+
+				  var view = new google.visualization.DataView(data);
+				  view.setColumns([0, 1,
+								   { calc: "stringify",
+									 sourceColumn: 1,
+									 type: "string",
+									 role: "annotation" },
+								   2]);
+					   
+				var barchart_options = {title:'',width:$(window).width()-30,height:250, chartArea: {width: '85%', height: '80%'},legend:'none',hAxis:{textStyle:{fontSize:9,color:'#9c9c9c'}, gridlines:{color:'#eeeeee'}},vAxis:{baseline:value.TC, gridlines:{color:'#eeeeee'}, baselineColor:'#d4d4d4',textPosition:'none'},bar: { groupWidth: "25%" },annotations:{alwaysOutside:true}};
+				
+				var barchart = new google.visualization.ColumnChart($('#chart_div'+index)[0]);
+				
+				google.visualization.events.addListener(barchart, 'select', function(){
+					var selectedItem = barchart.getSelection()[0];
+					if (selectedItem) {
+						$('.subchart').hide();
+						if (!$('#chart'+selectedItem.row+'_div'+index).is(":visible")){
+							$('#chart'+selectedItem.row+'_div'+index).show( 'drop', {direction:'up'}, 500);
+						}
+					}
+				});
+				
+				barchart.draw(view,barchart_options);
+			}) 
+			
+			$.each( chart_data1, function( index, value ){
+				var vData=[];
+				
+				$.each( value, function( i, v ){
+					if (v > 0){
+						vData.push([i,v,'color:#35e37c']);
+					} else {
+						vData.push([i,v,'color:#ff4768']);
+					}
+				})
+				 var data = new google.visualization.DataTable();
+				  data.addColumn('string', 'Element');
+				  data.addColumn('number', 'Value');
+				  data.addColumn({role: 'style', type: 'string'});
+
+				  data.addRows(vData);
+
+				  var view = new google.visualization.DataView(data);
+				  view.setColumns([0, 1,
+								   { calc: "stringify",
+									 sourceColumn: 1,
+									 type: "string",
+									 role: "annotation" },
+								   2]);
+					   
+				var barchart_options = {title:'',width:$(window).width()-30,height:200, chartArea: {width: '65%', height: '70%'},legend:'none',hAxis:{textStyle:{fontSize:8,color:'#9c9c9c'}},vAxis:{ gridlines:{color:'#dddddd'}, baselineColor:'#d4d4d4',textPosition:'none'},bar: { groupWidth: "20%" },annotations:{alwaysOutside:true},backgroundColor:'#f3f3f3'};
+				
+				var barchart = new google.visualization.ColumnChart($('#chart1_div'+index)[0]);
+				barchart.draw(view,barchart_options);
+			})
+			
+			$.each( chart_data2, function( index, value ){
+				var vData=[];
+				
+				$.each( value, function( i, v ){
+					if (v > 0){
+						vData.push([i,v,'color:#35e37c']);
+					} else {
+						vData.push([i,v,'color:#ff4768']);
+					}
+				})
+				 var data = new google.visualization.DataTable();
+				  data.addColumn('string', 'Element');
+				  data.addColumn('number', 'Value');
+				  data.addColumn({role: 'style', type: 'string'});
+
+				  data.addRows(vData);
+
+				  var view = new google.visualization.DataView(data);
+				  view.setColumns([0, 1,
+								   { calc: "stringify",
+									 sourceColumn: 1,
+									 type: "string",
+									 role: "annotation" },
+								   2]);
+					   
+				var barchart_options = {title:'',width:$(window).width()-30,height:200, chartArea: {width: '65%', height: '70%'},legend:'none',hAxis:{textStyle:{fontSize:8,color:'#9c9c9c'}},vAxis:{ gridlines:{color:'#dddddd'}, baselineColor:'#d4d4d4',textPosition:'none'},bar: { groupWidth: "20%" },annotations:{alwaysOutside:true},backgroundColor:'#f3f3f3'};
+				
+				var barchart = new google.visualization.ColumnChart($('#chart2_div'+index)[0]);
+				barchart.draw(view,barchart_options);
+			})
+			
+			$.each( chart_data3, function( index, value ){
+				var vData=[];
+				
+				$.each( value, function( i, v ){
+					if (v > 0){
+						vData.push([i,v,'color:#35e37c']);
+					} else {
+						vData.push([i,v,'color:#ff4768']);
+					}
+				})
+				 var data = new google.visualization.DataTable();
+				  data.addColumn('string', 'Element');
+				  data.addColumn('number', 'Value');
+				  data.addColumn({role: 'style', type: 'string'});
+
+				  data.addRows(vData);
+
+				  var view = new google.visualization.DataView(data);
+				  view.setColumns([0, 1,
+								   { calc: "stringify",
+									 sourceColumn: 1,
+									 type: "string",
+									 role: "annotation" },
+								   2]);
+					   
+				var barchart_options = {title:'',width:$(window).width()-30,height:200, chartArea: {width: '65%', height: '70%'},legend:'none',hAxis:{textStyle:{fontSize:8,color:'#9c9c9c'}},vAxis:{ gridlines:{color:'#dddddd'}, baselineColor:'#d4d4d4',textPosition:'none'},bar: { groupWidth: "20%" },annotations:{alwaysOutside:true},backgroundColor:'#f3f3f3'};
+				
+				var barchart = new google.visualization.ColumnChart($('#chart3_div'+index)[0]);
+				barchart.draw(view,barchart_options);
+			})
+		}
+
+     
+
+    </script>
+</body>
+
+</html>

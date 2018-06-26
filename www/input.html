@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>GolfinUp</title>
+</head>
+
+<body id="input">
+    <div class="app container">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<div class="row no-gutters pinfo h10">
+					<div class="col-10">
+						Course:&nbsp;<span id="course"></span>
+						<div class="row no-gutter">
+							<div class="col-3">Hole:&nbsp;<span id="hole"></span></div>
+							<div class="col-9">Par:&nbsp;<span id="spar"></span></div>
+						</div>
+					</div>
+					
+					<div class="col-2">
+					<div class="btn-group dropleft">
+					  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="img/3dots.svg" width="30%" height="auto" />
+					  </button>
+					  <div class="dropdown-menu  dropdown-menu-right">
+						<a href="" id="endround" class="dropdown-item">Finish round</a>
+						<a href="" id="toholes" class="dropdown-item">Menu</a>
+					  </div>
+					</div>
+					</div>
+				</div>
+				<div class="h10 d-flex align-items-center">
+				<h2><img src="img/icono-hoyo-peque-o.svg" />   Shot <span></span><em></em></h2>
+				</div>
+				<form onsubmit="return false;">
+				<div class="row  no-gutters h10">
+					<div class="col-8 d-flex align-items-center">
+						Distance to hole:
+					</div>
+					<div class="col-4 pdist d-flex align-items-center">
+						<input tabindex="1" type="number" name="distance" id="distance" class="form-control" placeholder="meters"/>
+					</div>
+				</div>
+				<div class="row  no-gutters s2 h10">
+					<div class="col-3 d-flex align-items-center">
+						Lie:
+					</div>
+					<div class="col-9 d-flex align-items-center">
+						<select tabindex="2" class="custom-select"  name="lie" id="lie">
+							<option value="Teeing">Tee</option>
+							<option value="Fairway">Fairway</option>
+							<option value="Rough">Rough</option>
+							<option value="Bunker">Bunker</option>
+							<option value="Green">Green</option>
+							<option value="Other">Other </option>
+						</select>
+					</div>
+				</div>
+				<div class="row  no-gutters s3 h10">
+					<div class="col-2 d-flex align-items-center">
+						Club:
+						<input type="hidden" id="club" />
+					</div>
+					<div class="col-10">
+						<div id="clubs">
+							<div class="cluboption" data-value="Driver">D<sub>r</sub></div>
+							<div class="cluboption" data-value="3 wood">3<sub>W</sub></div>
+							<div class="cluboption" data-value="4 wood">4<sub>W</sub></div>
+							<div class="cluboption" data-value="5 wood">5<sub>W</sub></div>
+							<div class="cluboption" data-value="7 wood">7<sub>W</sub></div>
+							<div class="cluboption" data-value="2 hybrid">2<sub>H</sub></div>
+							<div class="cluboption" data-value="3 hybrid">3<sub>H</sub></div>
+							<div class="cluboption" data-value="4 hybrid">4<sub>H</sub></div>
+							<div class="cluboption" data-value="5 hybrid">5<sub>H</sub></div>
+							<div class="cluboption" data-value="1 iron">1<sub>I</sub></div>
+							<div class="cluboption" data-value="2 iron">2<sub>I</sub></div>
+							<div class="cluboption" data-value="3 iron">3<sub>I</sub></div>
+							<div class="cluboption" data-value="4 iron">4<sub>I</sub></div>
+							<div class="cluboption" data-value="5 iron">5<sub>I</sub></div>
+							<div class="cluboption" data-value="6 iron">6<sub>I</sub></div>
+							<div class="cluboption" data-value="7 iron">7<sub>I</sub></div>
+							<div class="cluboption" data-value="8 iron">8<sub>I</sub></div>
+							<div class="cluboption" data-value="9 iron">9<sub>I</sub></div>
+							<div class="cluboption" data-value="Pitching wedge">P<sub>W</sub></div>
+							<div class="cluboption" data-value="Gap wedge">G<sub>W</sub></div>
+							<div class="cluboption" data-value="Sand wedge">S<sub>W</sub></div>
+							<div class="cluboption" data-value="Lob wedge">L<sub>W</sub></div>
+							<div class="cluboption" data-value="Putter">P<sub>T</sub></div>
+						</div>
+					</div>
+				</div>
+				<div class="row  no-gutters s4 h10">
+					<div class="col-9 d-flex align-items-center">
+						Impeded shot:
+					</div>
+					<div class="col-3 aright d-flex align-items-center justify-content-end">
+					<div class="custom-control custom-checkbox">
+						<input tabindex="4" type="checkbox" name="prevented" id="prevented" class="form-control-lg custom-control-input">
+						<label class="custom-control-label" for="prevented">&nbsp;</label>
+					</div>
+					</div>
+				</div>
+				<div class="row  no-gutters s5 h10">
+					<div class="col-9 d-flex align-items-center">
+						Penalty shot:
+					</div>
+					<div class="col-3 d-flex align-items-center">
+						<select tabindex="5" name="penalty" id="penalty" class="custom-select">
+							<option></option>
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</div>
+				</form>
+			</div>
+			<div class="col-1"></div>
+			
+			</div>
+			<div class="row wp h10">
+				
+			<div class="col-4 sp">
+				<a href="" id="gimme" class="btn btn-info btn-lg">Gimmie</a>
+			</div>
+			<div class="col-4 sp">
+				<a href="" id="endhole" class="btn btn-info btn-lg">Next hole</a>
+				<a href="" id="endround2" class="btn btn-info btn-danger btn-lg" style="display:none;">Finish round</a>
+			</div>
+			<div class="col-2 sp">
+				<a href="" id="prevstrike" class="btn btn-info btn-lg"><img src="img/aleft.svg" /></a>
+			</div>
+			<div class="col-2 sp">
+				<a href="" id="nextstrike" class="btn btn-info btn-lg"><img src="img/aright.svg" /></a>
+			</div>
+			</div>
+		</div>
+    </div>
+<footer class="fixed-bottom">
+	<div class="container-fluid">
+		<div class="col-3">
+			<a href="home.html">
+				<img src="img/home_inactive.svg"><br>Dashboard
+			</a>
+		</div>
+		<div class="col-3 active">
+			<a href="play.html">
+				<img src="img/input.svg"><br>Input
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="stats.html">
+				<img src="img/stats_inactive.svg"><br>Stats
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="ajustes.html">
+				<img src="img/ajustes_inactive.svg"><br>Config.
+			</a>
+		</div>
+	</div>
+</footer>
+
+<div class="modal" id="modal1" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Has it been ball holed or lifted?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="bholed" class="btn btn-primary">Holed</button>
+        <button type="button" id="blifted" class="btn btn-primary">Lifted</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modalpar" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+		<div class="row">
+			<div class="col-10"></div>
+			<div class="col-2">
+			<div class="btn-group dropleft">
+					  <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="img/3dots.svg" width="30%" height="auto" />
+					  </button>
+					  <div class="dropdown-menu  dropdown-menu-right">
+						<a href="" id="endround3" class="dropdown-item">Finish round</a>
+						<a href="" id="toholes3" class="dropdown-item">Menu</a>
+					  </div>
+					</div></div>
+			<div class="col-12 spc acenter">
+			<img src="img/icono-hoyo-peque-o.svg"><br>
+			<span id="hole2"></span> Hole</div>
+			<div class="col-4 aright d-flex align-items-center">
+			Select par
+			</div>
+			<div class="col-8 acenter">
+				<button class="sqbtn h3" name="hole" value="3">3</button>
+				<button class="sqbtn h4" name="hole" value="4">4</button>
+				<button class="sqbtn h5" name="hole" value="5">5</button>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal2" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body acenter">
+	  <img src="img/icono-hoyo-peque-o.svg"><br>
+        <p>2nd shot in par 5:</p>
+	   <div class="col-12 acenter">
+        <button type="button" id="sd1" class="btn btn-info"> Going for the green</button>
+		</div>
+	   <div class="col-12 acenter">
+        <button type="button" id="sd2" class="btn btn-info">Laying up</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modalmsg" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+	  <div class="modal-header acenter">
+        <h5 class="modal-title acenter">Error saving data</h5>
+      </div>
+      <div class="modal-body acenter">
+	  <p></p>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/slick.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		var unitT;
+		var unitT2;
+		var gender = 'Male';
+		
+		var penalty1 = false;
+		var penalty2 = false;
+		
+		var gclubs = [
+			"Driver",
+			"3 wood",
+			"4 wood",
+			"5 wood",
+			"7 wood",
+			"2 hybrid",
+			"3 hybrid",
+			"4 hybrid",
+			"5 hybrid",
+			"1 iron",
+			"2 iron",
+			"3 iron",
+			"4 iron",
+			"5 iron",
+			"6 iron",
+			"7 iron",
+			"8 iron",
+			"9 iron",
+			"Pitching wedge",
+			"Gap wedge",
+			"Sand wedge",
+			"Lob wedge",
+			"Putter"
+		];
+		
+		$(document).ready(function(){
+			var units = window.localStorage.getItem("units");
+			if (units == 'yards'){
+				unitT = 0.9144;
+				unitT2 = 1.0936;
+			} else {
+				unitT = 1;
+				unitT2 = 1;
+			}
+			if (window.localStorage.getItem("gender") != null){
+				gender = window.localStorage.getItem("gender");
+			}
+			
+			var pholes = round_holes_count();
+			
+			
+			// CAROUSEL
+			
+			if (window.localStorage.getItem("clubs") == null){
+				var sclubs = new Array();
+			} else {
+				var sclubs = JSON.parse(window.localStorage.getItem("clubs"));
+				if (sclubs.length > 0){
+					$('#clubs .cluboption').each(function(){
+						if ($.inArray($(this).data('value'), sclubs) == -1){
+							$(this).remove();
+						}
+					});
+				}
+			}
+			
+			$('#clubs').slick({
+			  centerMode: true,
+			  centerPadding: '0px',
+			  slidesToShow: 5,
+			  infinite: false,
+			  touchThreshold: 10,
+			  //easing:false,
+			  //cssEase:false,
+			  swipeToSlide: true,
+			  responsive: [
+				{
+				  breakpoint: 768,
+				  settings: {
+					arrows: false,
+					centerMode: true,
+					centerPadding: '0px',
+					infinite: false,
+					//easing:false,
+					//cssEase:false,
+					swipeToSlide: true,
+					slidesToShow: 5
+				  }
+				},
+				{
+				  breakpoint: 480,
+				  settings: {
+					arrows: false,
+					centerMode: true,
+					centerPadding: '0px',
+					infinite: false,
+					//easing:false,
+					//cssEase:false,
+					swipeToSlide: true,
+					slidesToShow: 5
+				  }
+				}
+			  ]
+			});
+			
+			$('#clubs').on('afterChange', function(event, slick, currentSlide){
+				var club = $(slick.$slides.get(currentSlide)).data('value');
+				$('#club').val(club);
+			});
+			
+			
+			
+			
+			
+			var strike = parseInt(window.localStorage.getItem("strike"));
+			if (!(strike > 0)){
+				strike = 1;
+			}
+			if (strike == 1){
+				$('#prevstrike').addClass('disabled');
+				$('#gimme').addClass('disabled');
+				$('#prevented').prop('disabled',true);
+				$('#penalty').prop('disabled',true);
+				
+				window.localStorage.setItem("par",0);
+				$("#modalpar").modal({show: true,keyboard: false,backdrop: 'static'});
+				
+				$('#lie').empty().append($('<option>', {value: 'Teeing',text: 'Tee'})).attr('readonly','readonly');
+				$('#club').val('Driver');
+				$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Driver"]').data('slickIndex'));
+			} else {
+				$('#lie').val(window.localStorage.getItem("lie"));
+				if (window.localStorage.getItem("lie")=='Green'){
+					$('#club').val('Putter');//.attr('disabled',true);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Putter"]').data('slickIndex'));
+				} /* else {
+ 					$('#club').val(window.localStorage.getItem("club"));
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+window.localStorage.getItem("club")+'"]').data('slickIndex'));
+				} */
+			}
+
+			var par = window.localStorage.getItem("par");
+
+			if (par == 3){
+				 if (strike > 1){
+					$('#lie').val('Green');
+					$('#club').val('Putter');
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Putter"]').data('slickIndex'));
+				 }
+			} else if(par == 4){
+				 if (strike > 1 && strike < 3){
+					$('#lie').val('Fairway');
+				 } else if (strike > 2){
+				 //console.log('ok');
+					$('#lie').val('Green');
+					$('#club').val('Putter');
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Putter"]').data('slickIndex'));
+				 }
+			} else if (par == 5){
+				if (strike > 1 && strike < 4){
+					$('#lie').val('Fairway');
+				 } else if (strike > 3){
+					$('#lie').val('Green');
+					$('#club').val('Putter');
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Putter"]').data('slickIndex'));
+				 }
+			}
+			if (strike == 2 && par == 5){
+				$("#modal2").modal({show: true,keyboard: false,backdrop: 'static'});
+			}
+			
+			/*if (par > 0){
+				$('#par').val(par);
+			} */
+			
+			window.localStorage.setItem("strike", strike);
+			if (window.localStorage.getItem("holes") == null){
+				var holes = new Array();
+			} else {
+				var holes = JSON.parse(window.localStorage.getItem("holes"));
+			}
+			holes[window.localStorage.getItem("shole")] = 1;
+			window.localStorage.setItem("holes", JSON.stringify(holes));
+			$('#course').html(window.localStorage.getItem("course"));
+			$('#hole').html(window.localStorage.getItem("shole"));
+			$('#hole2').html(ordinal_suffix_of(window.localStorage.getItem("shole")));
+			$('#spar').html(window.localStorage.getItem("par"));
+			$('#tour').html(window.localStorage.getItem("tour"));
+			$('h2 span').html(window.localStorage.getItem("strike"));
+			pstrike = parseInt(window.localStorage.getItem("pstrike"));
+			if (pstrike > 0){
+				$('h2 em').html('+'+pstrike);
+			} else {
+				window.localStorage.setItem("pstrike",0);
+			}
+			
+			
+			shole = window.localStorage.getItem("shole");
+
+			$('#distance').attr('placeholder',window.localStorage.getItem("units"));
+			
+			
+			$('.wp .btn-info').each(function(){
+				height = $('#nextstrike').outerHeight();
+				$(this).css('line-height',(height+2)+'px');
+			});
+			
+			
+			var wHeight = window.innerHeight;
+			var mHeight = $('footer').height()+15; //8
+			var h10Height = (wHeight-mHeight)/8;
+			$('#input .h10').outerHeight(h10Height);
+			
+			
+			
+			
+		});
+			
+			
+			
+		$('#prevstrike').click(function(event){
+			event.preventDefault();
+			if ($(this).hasClass('disabled')) return;
+			$('.app').hide();
+			var strike = parseInt(window.localStorage.getItem("strike"));
+			if (!(strike > 0)){
+				strike = 1;
+			}
+			//window.localStorage.setItem("strike", strike-1);
+			//window.location.href = 'input.html';
+			if ( strike > 1){
+				recoverStroke(strike-1);
+			}
+			$('.app').fadeIn('slow');
+		});
+		$('#nextstrike').click(function(event){
+			event.preventDefault();
+			
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_save_input',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'course':window.localStorage.getItem("course"),
+					'tour':window.localStorage.getItem("tour"),
+					'hole':window.localStorage.getItem("shole"),
+					'par':window.localStorage.getItem("par"),
+					'strike':window.localStorage.getItem("strike"),
+					'distance':parseInt($('#distance').val())*unitT,
+					'lie':$('#lie').val(),
+					'club':$('#club').val(),
+					'prevented':$('#prevented:checked').length,
+					'penalty':$('#penalty').val(),
+					'lifted':0,
+					'closed':0
+				},
+				dataType: 'json',
+				success: function(response){
+					if (response.result == 0) alertmodal(response.msg);
+					else {
+						var strike = parseInt(window.localStorage.getItem("strike"));
+						if (!(strike > 0)){
+							strike = 1;
+						}
+						window.localStorage.setItem("strike", strike+1);
+						window.location.href = 'input.html';
+					}
+				}
+			});
+		});
+		$('.sqbtn').click(function(){
+			window.localStorage.setItem("par", $(this).val());
+			$('#spar').html($(this).val());
+			$("#modalpar").modal("hide");
+		}); 
+		/*$('#par').change(function(){
+			window.localStorage.setItem("par", $(this).val());
+			$('#spar').html($(this).val());
+			$("#modalpar").modal("hide");
+		});*/
+		$('#endhole').click(function(event){
+			event.preventDefault();
+			var gt = window.localStorage.getItem("game_type");
+			if (gt == 'Stableford'){
+				$("#modal1").modal("show");
+			} else {
+				$.ajax({
+					type: 'post',
+					cache: false,
+					url: 'http://golfinup.com/privado/ajax_save_input',
+					data: {
+						'user_id':window.localStorage.getItem("user_id"),
+						'course':window.localStorage.getItem("course"),
+						'tour':window.localStorage.getItem("tour"),
+						'hole':window.localStorage.getItem("shole"),
+						'par':window.localStorage.getItem("par"),
+						'strike':window.localStorage.getItem("strike"),
+						'distance':parseInt($('#distance').val())*unitT,
+						'lie':$('#lie').val(),
+						'club':$('#club').val(),
+						'prevented':$('#prevented:checked').length,
+						'penalty':$('#penalty').val(),
+						'lifted':1,
+						'closed':0
+					},
+					dataType: 'json',
+					success: function(response){
+						if (response.result == 0) alertmodal(response.msg);
+						else {
+							window.localStorage.setItem("strike", 1);
+							window.localStorage.setItem("pstrike", 0);
+							var shole = parseInt(window.localStorage.getItem("shole"));
+							if (shole == 18) shole = 0;
+							window.localStorage.setItem("shole", shole+1);
+							window.location.href = 'input.html';
+						}
+					}
+				});
+				
+			}
+		});
+		
+		$('#gimme').click(function(event){
+			event.preventDefault();
+			if ($(this).hasClass('disabled')) return;
+			var gt = window.localStorage.getItem("game_type");
+			if (gt == 'Stableford'){
+				$("#modal1").modal("show");
+			} else {
+				$.ajax({
+					type: 'post',
+					cache: false,
+					url: 'http://golfinup.com/privado/ajax_save_input',
+					data: {
+						'user_id':window.localStorage.getItem("user_id"),
+						'course':window.localStorage.getItem("course"),
+						'tour':window.localStorage.getItem("tour"),
+						'hole':window.localStorage.getItem("shole"),
+						'par':window.localStorage.getItem("par"),
+						'strike':window.localStorage.getItem("strike"),
+						'distance':'0.5',
+						'lie':'Green',
+						'club':'Putter',
+						'prevented':$('#prevented:checked').length,
+						'penalty':$('#penalty').val(),
+						'lifted':1,
+						'closed':0
+					},
+					dataType: 'json',
+					success: function(response){
+						if (response.result == 0) alertmodal(response.msg);
+						else {
+							window.localStorage.setItem("strike", 1);
+							window.localStorage.setItem("pstrike", 0);
+							pholes = parseInt(window.localStorage.getItem("pholes"));
+							if (pholes == 18){
+								window.localStorage.setItem("shole", '1');
+								window.location.href = 'holes.html';
+							} else {
+								var shole = parseInt(window.localStorage.getItem("shole"));
+								if (shole == 18) shole = 0;
+								window.localStorage.setItem("shole", shole+1);
+								window.location.href = 'input.html';
+							}
+						}
+					}
+				});
+				
+			}
+		});
+		
+		
+		$('#toholes, #toholes3').click(function(event){
+			event.preventDefault();
+			var gt = window.localStorage.getItem("game_type");
+			if (gt == 'Stableford'){
+				$("#modal1").modal("show");
+			} else {
+				if (parseInt($('#distance').val()) > 0){
+					$.ajax({
+						type: 'post',
+						cache: false,
+						url: 'http://golfinup.com/privado/ajax_save_input',
+						data: {
+							'user_id':window.localStorage.getItem("user_id"),
+							'course':window.localStorage.getItem("course"),
+							'tour':window.localStorage.getItem("tour"),
+							'hole':window.localStorage.getItem("shole"),
+							'par':window.localStorage.getItem("par"),
+							'strike':window.localStorage.getItem("strike"),
+							'distance':parseInt($('#distance').val())*unitT,
+							'lie':$('#lie').val(),
+							'club':$('#club').val(),
+							'prevented':$('#prevented:checked').length,
+							'penalty':$('#penalty').val(),
+							'lifted':0,
+							'closed':0
+						},
+						dataType: 'json',
+						success: function(response){
+							if (response.result == 0) alertmodal(response.msg);
+							else { 
+								window.localStorage.setItem("strike", 1);
+								window.localStorage.setItem("pstrike", 0);
+								var shole = parseInt(window.localStorage.getItem("shole"));
+								if (shole == 18) shole = 0;
+								window.localStorage.setItem("shole", shole+1);
+								window.location.href = 'holes.html';
+							}
+						}
+					});
+				} else {
+					window.localStorage.setItem("strike", 1);
+					window.localStorage.setItem("pstrike", 0);
+					var shole = parseInt(window.localStorage.getItem("shole"));
+					if (shole == 18) shole = 0;
+					window.localStorage.setItem("shole", shole+1);
+					window.location.href = 'holes.html';
+				}
+				
+			}
+		});
+		
+		$('#bholed').click(function(event){
+			event.preventDefault();
+			$("#modal1").modal("hide");
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_save_input',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'course':window.localStorage.getItem("course"),
+					'tour':window.localStorage.getItem("tour"),
+					'hole':window.localStorage.getItem("shole"),
+					'par':window.localStorage.getItem("par"),
+					'strike':window.localStorage.getItem("strike"),
+					'distance':parseInt($('#distance').val())*unitT,
+					'lie':$('#lie').val(),
+					'club':$('#club').val(),
+					'prevented':$('#prevented:checked').length,
+					'penalty':$('#penalty').val(),
+					'lifted':0,
+					'closed':0
+				},
+				dataType: 'json',
+				success: function(response){
+					if (response.result == 0) alertmodal(response.msg);
+					else {
+						window.localStorage.setItem("strike", 1);
+						window.localStorage.setItem("pstrike", 0);
+						var shole = parseInt(window.localStorage.getItem("shole"));
+						if (shole == 18) shole = 0;
+						window.localStorage.setItem("shole", shole+1);
+						window.location.href = 'input.html';
+					}
+				}
+			});
+		});
+		$('#blifted').click(function(event){
+			event.preventDefault();
+			$("#modal1").modal("hide");
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_save_input',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'course':window.localStorage.getItem("course"),
+					'tour':window.localStorage.getItem("tour"),
+					'hole':window.localStorage.getItem("shole"),
+					'par':window.localStorage.getItem("par"),
+					'strike':window.localStorage.getItem("strike"),
+					'distance':parseInt($('#distance').val())*unitT,
+					'lie':$('#lie').val(),
+					'club':$('#club').val(),
+					'prevented':$('#prevented:checked').length,
+					'penalty':$('#penalty').val(),
+					'lifted':1,
+					'closed':0
+				},
+				dataType: 'json',
+				success: function(response){
+					if (response.result == 0) alertmodal(response.msg);
+					else {
+						window.localStorage.setItem("strike", 1);
+						window.localStorage.setItem("pstrike", 0);
+						var shole = parseInt(window.localStorage.getItem("shole"));
+						if (shole == 18) shole = 0;
+						window.localStorage.setItem("shole", shole+1);
+						window.location.href = 'input.html';
+					}
+				}
+			});
+		});
+		
+		
+		$('#endround, #endround2, #endround3').click(function(event){
+			event.preventDefault();
+			if (parseInt($('#distance').val()) > 0){
+				$.ajax({
+					type: 'post',
+					cache: false,
+					url: 'http://golfinup.com/privado/ajax_save_input',
+					data: {
+						'user_id':window.localStorage.getItem("user_id"),
+						'course':window.localStorage.getItem("course"),
+						'tour':window.localStorage.getItem("tour"),
+						'hole':window.localStorage.getItem("shole"),
+						'par':window.localStorage.getItem("par"),
+						'strike':window.localStorage.getItem("strike"),
+						'distance':parseInt($('#distance').val())*unitT,
+						'lie':$('#lie').val(),
+						'club':$('#club').val(),
+						'prevented':$('#prevented:checked').length,
+						'penalty':$('#penalty').val(),
+						'lifted':0,
+						'closed':1
+					},
+					dataType: 'json',
+					success: function(response){
+						if (response.result == 0) alertmodal(response.msg);
+						else {
+							window.localStorage.removeItem("par");
+							window.localStorage.removeItem("strike");
+							window.localStorage.removeItem("shole");
+							window.localStorage.removeItem("pstrike");
+							window.localStorage.removeItem("lie");
+							window.localStorage.removeItem("club");
+							
+							window.location.href = 'resume.html';
+						}
+					}
+				});
+			} else {
+				window.localStorage.removeItem("par");
+				window.localStorage.removeItem("strike");
+				window.localStorage.removeItem("shole");
+				window.localStorage.removeItem("pstrike");
+				window.localStorage.removeItem("lie");
+				window.localStorage.removeItem("club");
+				
+				window.location.href = 'resume.html';
+			}
+		});
+		$('#distance').change(function(){
+			//$('.s2').removeClass('disabled');
+			$(this).css('border','1px solid #ced4da');
+			
+			var strike = parseInt(window.localStorage.getItem("strike"));
+			var par = window.localStorage.getItem("par");
+			if ((par==3 && strike == 1) || (par==4 && strike <= 2) || (par==5 && (strike <= 3))){
+				
+				distance = $(this).val();
+				distance = distance*unitT;
+				iclub = 0;
+				
+				if (gender == 'Male'){
+					if (distance < 60){
+						iclub = 21;
+					}else if(between(distance,60,89)){
+						iclub = 20;
+					} else if(between(distance,90,109)){  
+						iclub = 19;
+					} else if(between(distance,110,124)){  
+						iclub = 18;
+					} else if(between(distance,125,134)){ 
+						iclub = 17;
+					} else if(between(distance,135,144)){ 
+						iclub = 16;
+					} else if(between(distance,145,154)){ 
+						iclub = 15;
+					} else if(between(distance,155,164)){ 
+						iclub = 14;
+					} else if(between(distance,165,174)){ 
+						iclub = 13;
+					} else if(between(distance,175,184)){ 
+						iclub = 12;
+					} else if(between(distance,185,194)){ 
+						if ($('.cluboption[data-value="3 iron"]').length){
+							iclub = 11;
+						} else if ($('.cluboption[data-value="5 hybrid"]').length){
+							iclub = 8;
+						} else if ($('.cluboption[data-value="4 hybrid"]').length){
+							iclub = 7;
+						} else if ($('.cluboption[data-value="7 wood"]').length){
+							iclub = 4;
+						} else {
+							iclub = 10;
+						}
+					} else if(between(distance,195,214)){ 
+						if ($('.cluboption[data-value="2 iron"]').length){
+							iclub = 10;
+						} else if ($('.cluboption[data-value="2 hybrid"]').length){
+							iclub = 5;
+						} else if ($('.cluboption[data-value="3 hybrid"]').length){
+							iclub = 6;
+						} else if ($('.cluboption[data-value="5 wood"]').length){
+							iclub = 3;
+						} else {
+							iclub = 9;
+						}
+					} else if(between(distance,214,235)){ 
+						if ($('.cluboption[data-value="1 iron"]').length){
+							iclub = 9;
+						} else if ($('.cluboption[data-value="4 wood"]').length){
+							iclub = 2;
+						} else if ($('.cluboption[data-value="3 wood"]').length){
+							iclub = 1;
+						}  else {
+							iclub = 8;
+						}
+					} else {
+						iclub = 0;
+					}
+					while ($('.cluboption[data-value="'+gclubs[iclub]+'"]').length == false){
+						iclub--;
+					}
+					$('#club').val(gclubs[iclub]);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+gclubs[iclub]+'"]').data('slickIndex'));
+				
+				} else {
+					if (distance < 50){
+						iclub = 21;
+					}else if(between(distance,50,69)){
+						iclub = 20;
+					} else if(between(distance,70,94)){  
+						iclub = 19;
+					} else if(between(distance,95,104)){  
+						iclub = 18;
+					} else if(between(distance,105,114)){ 
+						iclub = 17;
+					} else if(between(distance,115,124)){ 
+						iclub = 16;
+					} else if(between(distance,125,134)){ 
+						iclub = 15;
+					} else if(between(distance,135,144)){ 
+						iclub = 14;
+					} else if(between(distance,145,154)){ 
+						iclub = 13;
+					} else if(between(distance,155,164)){ 
+						iclub = 12;
+					} else if(between(distance,165,174)){ 
+						if ($('.cluboption[data-value="3 iron"]').length){
+							iclub = 11;
+						} else if ($('.cluboption[data-value="5 hybrid"]').length){
+							iclub = 8;
+						} else if ($('.cluboption[data-value="4 hybrid"]').length){
+							iclub = 7;
+						} else if ($('.cluboption[data-value="7 wood"]').length){
+							iclub = 4;
+						} else {
+							iclub = 10;
+						}
+					} else if(between(distance,175,184)){ 
+						if ($('.cluboption[data-value="2 iron"]').length){
+							iclub = 10;
+						} else if ($('.cluboption[data-value="2 hybrid"]').length){
+							iclub = 5;
+						} else if ($('.cluboption[data-value="3 hybrid"]').length){
+							iclub = 6;
+						} else if ($('.cluboption[data-value="5 wood"]').length){
+							iclub = 3;
+						} else {
+							iclub = 9;
+						}
+					} else if(between(distance,185,194)){ 
+						if ($('.cluboption[data-value="1 iron"]').length){
+							iclub = 9;
+						} else if ($('.cluboption[data-value="4 wood"]').length){
+							iclub = 2;
+						} else if ($('.cluboption[data-value="3 wood"]').length){
+							iclub = 1;
+						} else {
+							iclub = 8;
+						}
+					} else {
+						iclub = 0;
+					}
+					while ($('.cluboption[data-value="'+gclubs[iclub]+'"]').length == false){
+						iclub--;
+					}
+					$('#club').val(gclubs[iclub]);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+gclubs[iclub]+'"]').data('slickIndex'));
+				}
+			}
+		});
+		$('#lie').change(function(){
+			$(this).css('border','1px solid #ced4da');
+			console.log($('#lie option:selected').val());
+			if ($('#lie option:selected').val() == 'Green'){
+				$('#club').val('Putter');//.attr('disabled',true);
+				$('#clubs').slick('slickGoTo',$('.cluboption[data-value="Putter"]').data('slickIndex'));
+			} else if($('#lie option:selected').val() != 'Green'){
+			
+			
+				var strike = parseInt(window.localStorage.getItem("strike"));
+				var par = window.localStorage.getItem("par");
+
+				
+				distance = $('#distance').val();
+				distance = distance*unitT;
+				iclub = 0;
+				
+				if (gender == 'Male'){
+					if (distance < 60){
+						iclub = 21;
+					}else if(between(distance,60,89)){
+						iclub = 20;
+					} else if(between(distance,90,109)){  
+						iclub = 19;
+					} else if(between(distance,110,124)){  
+						iclub = 18;
+					} else if(between(distance,125,134)){ 
+						iclub = 17;
+					} else if(between(distance,135,144)){ 
+						iclub = 16;
+					} else if(between(distance,145,154)){ 
+						iclub = 15;
+					} else if(between(distance,155,164)){ 
+						iclub = 14;
+					} else if(between(distance,165,174)){ 
+						iclub = 13;
+					} else if(between(distance,175,184)){ 
+						iclub = 12;
+					} else if(between(distance,185,194)){ 
+						if ($('.cluboption[data-value="3 iron"]').length){
+							iclub = 11;
+						} else if ($('.cluboption[data-value="5 hybrid"]').length){
+							iclub = 8;
+						} else if ($('.cluboption[data-value="4 hybrid"]').length){
+							iclub = 7;
+						} else if ($('.cluboption[data-value="7 wood"]').length){
+							iclub = 4;
+						} else {
+							iclub = 10;
+						}
+					} else if(between(distance,195,214)){ 
+						if ($('.cluboption[data-value="2 iron"]').length){
+							iclub = 10;
+						} else if ($('.cluboption[data-value="2 hybrid"]').length){
+							iclub = 5;
+						} else if ($('.cluboption[data-value="3 hybrid"]').length){
+							iclub = 6;
+						} else if ($('.cluboption[data-value="5 wood"]').length){
+							iclub = 3;
+						} else {
+							iclub = 9;
+						}
+					} else if(between(distance,214,235)){ 
+						if ($('.cluboption[data-value="1 iron"]').length){
+							iclub = 9;
+						} else if ($('.cluboption[data-value="4 wood"]').length){
+							iclub = 2;
+						} else if ($('.cluboption[data-value="3 wood"]').length){
+							iclub = 1;
+						}  else {
+							iclub = 8;
+						}
+					} else {
+						iclub = 0;
+					}
+					while ($('.cluboption[data-value="'+gclubs[iclub]+'"]').length == false){
+						iclub--;
+					}
+					console.log(iclub);
+					console.log(gclubs[iclub]);
+					$('#club').val(gclubs[iclub]);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+gclubs[iclub]+'"]').data('slickIndex'));
+				
+				} else {
+					if (distance < 50){
+						iclub = 21;
+					}else if(between(distance,50,69)){
+						iclub = 20;
+					} else if(between(distance,70,94)){  
+						iclub = 19;
+					} else if(between(distance,95,104)){  
+						iclub = 18;
+					} else if(between(distance,105,114)){ 
+						iclub = 17;
+					} else if(between(distance,115,124)){ 
+						iclub = 16;
+					} else if(between(distance,125,134)){ 
+						iclub = 15;
+					} else if(between(distance,135,144)){ 
+						iclub = 14;
+					} else if(between(distance,145,154)){ 
+						iclub = 13;
+					} else if(between(distance,155,164)){ 
+						iclub = 12;
+					} else if(between(distance,165,174)){ 
+						if ($('.cluboption[data-value="3 iron"]').length){
+							iclub = 11;
+						} else if ($('.cluboption[data-value="5 hybrid"]').length){
+							iclub = 8;
+						} else if ($('.cluboption[data-value="4 hybrid"]').length){
+							iclub = 7;
+						} else if ($('.cluboption[data-value="7 wood"]').length){
+							iclub = 4;
+						} else {
+							iclub = 10;
+						}
+					} else if(between(distance,175,184)){ 
+						if ($('.cluboption[data-value="2 iron"]').length){
+							iclub = 10;
+						} else if ($('.cluboption[data-value="2 hybrid"]').length){
+							iclub = 5;
+						} else if ($('.cluboption[data-value="3 hybrid"]').length){
+							iclub = 6;
+						} else if ($('.cluboption[data-value="5 wood"]').length){
+							iclub = 3;
+						} else {
+							iclub = 9;
+						}
+					} else if(between(distance,185,194)){ 
+						if ($('.cluboption[data-value="1 iron"]').length){
+							iclub = 9;
+						} else if ($('.cluboption[data-value="4 wood"]').length){
+							iclub = 2;
+						} else if ($('.cluboption[data-value="3 wood"]').length){
+							iclub = 1;
+						} else {
+							iclub = 8;
+						}
+					} else {
+						iclub = 0;
+					}
+					while ($('.cluboption[data-value="'+gclubs[iclub]+'"]').length == false){
+						iclub--;
+					}
+					$('#club').val(gclubs[iclub]);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+gclubs[iclub]+'"]').data('slickIndex'));
+				}
+			
+			
+			} else {
+				//$('#club').attr('disabled',false);
+			}
+			//$('.s3').removeClass('disabled');
+			window.localStorage.setItem("lie", $(this).val());
+		});
+		$('#club').change(function(){
+			//$('.s4').removeClass('disabled');
+			//$('.s5').removeClass('disabled');
+			window.localStorage.setItem("club", $(this).val());
+		});
+		$('#penalty').change(function(){
+			pstrike = window.localStorage.getItem("pstrike");
+			newPStrike = parseInt($(this).val());
+			if(isNaN(newPStrike)){
+				if (penalty1){
+					penalty1 = false;
+					pstrike = pstrike-1;
+				}
+				if (penalty2){
+					penalty2 = false;
+					pstrike = pstrike-2;
+				}
+				if (pstrike > 0){
+					$('h2 em').html('+'+pstrike);
+				}else{
+					$('h2 em').html('');
+				}
+				window.localStorage.setItem("pstrike", pstrike);
+			} else {
+				if (parseInt(newPStrike)==1){
+					penalty1 = true;
+					penalty2 = false;
+				}
+				if (parseInt(newPStrike)==2){
+					penalty2=true;
+					penalty1=false;
+				}
+				window.localStorage.setItem("pstrike", parseInt(pstrike)+parseInt(newPStrike));
+				$('h2 em').html('+'+(parseInt(pstrike)+parseInt(newPStrike)));
+			}
+		});
+		$('#sd1').click(function(){$('#modal2').modal('hide')})
+		$('#sd2').click(function(){$('#modal2').modal('hide')})
+		
+		function recoverStroke(stroke){
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_recover_input',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'tour':window.localStorage.getItem("tour"),
+					'hole':window.localStorage.getItem("shole"),
+					'strike':stroke
+				},
+				dataType: 'json',
+				success: function(response){
+					$('#club').val(response.club);
+					$('#clubs').slick('slickGoTo',$('.cluboption[data-value="'+response.club+'"]').data('slickIndex'));
+					$('#lie').val(response.lie);
+					$('#distance').val(Math.ceil(parseInt(response.distance)*unitT2));
+					$('#penalty').val(response.penalty);
+					if (response.prevented == 1){
+						$('#prevented').prop('checked','checked');
+					}
+					window.localStorage.setItem("strike",stroke);
+					$('h2 span').html(stroke);
+					if (parseInt(stroke) == 1){
+						$('#prevstrike').addClass('disabled');
+						$('#gimme').addClass('disabled');
+						window.localStorage.setItem("par",0);
+						$("#modalpar").modal({show: true,keyboard: false,backdrop: 'static'});
+						$('#lie').empty().append($('<option>', {value: 'Teeing',text: 'Tee'})).attr('readonly','readonly');
+					}
+				}
+			});
+		}
+		
+		function ordinal_suffix_of(i) {
+			var j = i % 10,
+				k = i % 100;
+			if (j == 1 && k != 11) {
+				return i + "st";
+			}
+			if (j == 2 && k != 12) {
+				return i + "nd";
+			}
+			if (j == 3 && k != 13) {
+				return i + "rd";
+			}
+			return i + "th";
+		}
+		
+		function round_holes_count()
+		{
+			var pholes = 1;
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/round_holes_count',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'tour':window.localStorage.getItem("tour")
+				},
+				dataType: 'json',
+				success: function(response){
+					pholes = response;
+					//console.log(pholes);
+					window.localStorage.setItem("pholes", pholes);
+					if (parseInt(pholes) > 17){
+						$('#endhole').hide();
+						$('#endround2').show();
+					} 
+					return pholes;
+				}
+			});
+		}
+		
+		function alertmodal(msg)
+		{
+			if (msg == 'ERROR'){
+				$('#distance, #lie').css('border','2px solid #e21630');
+			} else {
+				$("#modalmsg .modal-body p").html(msg);
+				$("#modalmsg").modal({show: true});
+			}
+		}
+		
+		function between(val,min,max){
+			return (min<=val && val<=max);
+		}
+    </script>
+</body>
+
+</html>

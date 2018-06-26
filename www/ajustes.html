@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>GolfinUp</title>
+</head>
+
+<body id="ajustes">
+    <div class="app container">
+		<div class="row">
+			<div class="col-12">
+					<h2><img src="img/icono-ajustes.svg" />   Configuration</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div id="accordion" role="tablist"  data-children=".item">
+				  <div class="item">
+					<div class="item-header" role="tab" id="headingOne">
+						<a class="collapsed" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="false" aria-controls="collapseOne">
+						  Security <span>+</span>
+						</a>
+					</div>
+
+					<div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+					  <div class="item-body">
+						<label>Change password </label><br>
+						<input type="password" class="form-control" name="password" placeholder="Current password" />
+						<input type="password" class="form-control" name="newpassword"  placeholder="New password" />
+						<input type="password" class="form-control" name="newpassword2"  placeholder="Repeat new password" />
+						<div class="col-12 acenter">
+							<a href="#" id="saveconfig" class="btn btn-info">Save</a>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <!--<div class="item">
+					<div class="item-header" role="tab" id="headingThree">
+						<a class="collapsed" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+						  Gender <span>+</span>
+						</a>
+					</div>
+
+					<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+					  <div class="item-body">
+						
+					  </div>
+					</div>
+				  </div>-->
+				  <div class="item">
+					<div class="item-header" role="tab" id="headingFour">
+						<a class="collapsed" data-toggle="collapse" href="#collapseFour" role="button" aria-expanded="false" aria-controls="collapseFour">
+						  Profile <span>+</span>
+						</a>
+					</div>
+
+					<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
+					  <div class="item-body">
+					  <div class="btn-group btn-group-toggle" data-toggle="buttons" id="genders">
+						  <label class="btn btn-secondary g1">
+							<input type="radio" name="gender" id="gender1" autocomplete="off" value="Male"> <span></span>Male
+						  </label>
+						  <label class="btn btn-secondary g2">
+							<input type="radio" name="gender" id="gender2" autocomplete="off" value="Female"> <span></span>Female
+						  </label>
+						</div>
+						<div class="btn-group btn-group-toggle" data-toggle="buttons" id="profiles">
+						  <label class="btn btn-secondary">
+							<input type="radio" name="profile" id="profile1" autocomplete="off" value="amateur"> Amateur
+						  </label>
+						  <label class="btn btn-secondary">
+							<input type="radio" name="profile" id="profile2" autocomplete="off" value="professional"> Professional
+						  </label>
+						</div>
+						
+						<div class="col-12 profileop" id="amateurop" style="display:none">
+							<label>Handicap</label>
+							<span id="handicapvalue"></span>
+							<input type="range" class="form-control" name="handicap" id="handicap"  min="-6" max="36" />
+						</div>
+						
+						<div class="col-12 profileop" id="professionalop" style="display:none">
+							<label>Status</label>
+							<div id="tours" class="" data-toggle="buttons">
+								<div class="form-group Female Male"><label class="btn btn-info" data-for="tour1"><input id="tour1" type="radio" name="tour" value="Club Pro" />Club Pro</label></div>
+								<div class="form-group Female Male"><label class="btn btn-info" data-for="tour2"><input id="tour2" type="radio" name="tour" value="Mini tour Pro" />Mini Tour Player</label></div>
+								<div class="form-group Male"><label class="btn btn-info" data-for="tour4"><input id="tour4" type="radio" name="tour" value="Challenge Tour Pro" />Challenge Tour<br>Web.com Tour<br>Asian Tour</label></div>
+								<div class="form-group Male"><label class="btn btn-info" data-for="tour6"><input id="tour6" type="radio" name="tour" value="PGA Tour Pro" />European Tour<br>PGA Tour</label></div>
+								<div class="form-group Female"><label class="btn btn-info" data-for="tour7"><input id="tour7" type="radio" name="tour" value="Ladies European Tour Pro" />Ladies European Tour</label></div>
+								<div class="form-group Female"><label class="btn btn-info" data-for="tour8"><input id="tour8" type="radio" name="tour" value="Ladies PGA Tour Pro" />Ladies PGA Tour</label></div>
+							</div>
+						</div>
+						
+					  </div>
+					</div>
+				  </div>
+				  <div class="item">
+					<div class="item-header" role="tab" id="headingTwo">
+						<a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+						  Golf bag <span>+</span>
+						</a>
+					</div>
+					<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+					  <div class="item-body">
+						<div id="clubs" class="" data-toggle="buttons">
+							<div class="row no-gutters">
+							<div class="form-group col"><label class="btn btn-info" data-for="club1"><input id="club1" type="checkbox" name="clubs[]" value="Driver" />D<sub>r</sub><br><span>Driver</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club2"><input id="club2" type="checkbox" name="clubs[]" value="3 wood" />3<sub>W</sub><br><span>3 wood</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club3"><input id="club3" type="checkbox" name="clubs[]" value="4 wood" />4<sub>W</sub><br><span>4 wood</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club4"><input id="club4" type="checkbox" name="clubs[]" value="5 wood" />5<sub>W</sub><br><span>5 wood</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club5"><input id="club5" type="checkbox" name="clubs[]" value="7 wood" />7<sub>W</sub><br><span>7 wood</span></label></div>
+							</div>
+							<div class="row no-gutters">
+							<div class="form-group col"></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club6"><input id="club6" type="checkbox" name="clubs[]" value="2 hybrid" />2<sub>H</sub><br><span>2 hybrid</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club7"><input id="club7" type="checkbox" name="clubs[]" value="3 hybrid" />3<sub>H</sub><br><span>3 hybrid</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club8"><input id="club8" type="checkbox" name="clubs[]" value="4 hybrid" />4<sub>H</sub><br><span>4 hybrid</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club9"><input id="club9" type="checkbox" name="clubs[]" value="5 hybrid" />5<sub>H</sub><br><span>5 hybrid</span></label></div>
+							</div>
+							<div class="row no-gutters">
+							<div class="form-group col"><label class="btn btn-info" data-for="club10"><input id="club10" type="checkbox" name="clubs[]" value="1 iron" />1<sub>I</sub><br><span>1 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club11"><input id="club11" type="checkbox" name="clubs[]" value="2 iron" />2<sub>I</sub><br><span>2 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club12"><input id="club12" type="checkbox" name="clubs[]" value="3 iron" />3<sub>I</sub><br><span>3 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club13"><input id="club13" type="checkbox" name="clubs[]" value="4 iron" />4<sub>I</sub><br><span>4 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club14"><input id="club14" type="checkbox" name="clubs[]" value="5 iron" />5<sub>I</sub><br><span>5 iron</span></label></div>
+							</div>
+							<div class="row no-gutters">
+							<div class="form-group col"></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club15"><input id="club15" type="checkbox" name="clubs[]" value="6 iron" />6<sub>I</sub><br><span>6 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club16"><input id="club16" type="checkbox" name="clubs[]" value="7 iron" />7<sub>I</sub><br><span>7 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club17"><input id="club17" type="checkbox" name="clubs[]" value="8 iron" />8<sub>I</sub><br><span>8 iron</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club18"><input id="club18" type="checkbox" name="clubs[]" value="9 iron" />9<sub>I</sub><br><span>9 iron</span></label></div>
+							</div>
+							<div class="row no-gutters">
+							<div class="form-group col"><label class="btn btn-info" data-for="club19"><input id="club19" type="checkbox" name="clubs[]" value="Pitching wedge" />P<sub>w</sub><br><span>Pitching w</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club20"><input id="club20" type="checkbox" name="clubs[]" value="Gap wedge" />G<sub>w</sub><br><span>Gap w</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club21"><input id="club21" type="checkbox" name="clubs[]" value="Sand wedge" />S<sub>w</sub><br><span>Sand w</span></label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club22"><input id="club22" type="checkbox" name="clubs[]" value="Lob wedge" />L<sub>w</sub><br><span>Lob w</label></div>
+							<div class="form-group col"><label class="btn btn-info" data-for="club23"><input id="club23" type="checkbox" name="clubs[]" value="Putter" />P<sub>t</sub></label></div>
+							</div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+
+				  <div class="item">
+					<div class="item-header" role="tab" id="headingThree">
+						<a class="collapsed" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+						  Units <span>+</span>
+						</a>
+					</div>
+
+					<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+					  <div class="item-body">
+						<div class="btn-group btn-group-toggle" data-toggle="buttons" id="units">
+						  <label class="btn btn-secondary">
+							<input type="radio" name="units" id="units1" autocomplete="off" value="meters"> Meters
+						  </label>
+						  <label class="btn btn-secondary">
+							<input type="radio" name="units" id="units2" autocomplete="off" value="yards"> Yards
+						  </label>
+						</div>
+					  </div>
+					</div>
+				  </div>
+	
+					<div class="item">
+					<div class="item-header" role="tab" id="headingSix">
+						<a class="collapsed" data-toggle="collapse" href="#collapseSix" role="button" aria-expanded="false" aria-controls="collapseSix">
+						  Golf course <span>+</span>
+						</a>
+					</div>
+
+					<div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix" data-parent="#accordion">
+					  <div class="item-body scourse">
+						<input type="text" name="course" id="course" class="form-control typeahead"  placeholder="Type course..." />
+						<a id="nearme" href=""><svg data-name="Layer 1" id="Layer_1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;stroke:#0076ff;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><polyline class="cls-1" points="47 1 25.82 47 21.44 26.56 1 22.18 47 1"/></svg>
+						  Search near me
+						</a>
+						<div id="coursesops"></div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+
+    </div>
+<footer class="fixed-bottom">
+	<div class="container-fluid">
+		<div class="col-3 ">
+			<a href="home.html">
+				<img src="img/home_inactive.svg"><br>Dashboard
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="play.html">
+				<img src="img/input_inactive.svg"><br>Input
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="stats.html">
+				<img src="img/stats_inactive.svg"><br>Stats
+			</a>
+		</div>
+		<div class="col-3 active">
+			<a href="ajustes.html">
+				<img src="img/ajustes.svg"><br>Config.
+			</a>
+		</div>
+	</div>
+</footer>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/ajustes.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		
+		var sourceplaces = [];
+		var sourceplaces2 = JSON.parse(window.localStorage.getItem('sourceplaces2'));
+		if (sourceplaces2 == null){
+			sourceplaces2 = new Array();
+		}
+		
+		
+		$(document).ready(function(){
+		
+		
+		$('#clubs .btn-info').each(function(){
+				width = $(this).innerWidth();
+		console.log(width);
+				$(this).css('height',(width/2)+'px');
+			})
+		
+		
+			$('#nearme').click(function(event){
+				event.preventDefault();
+				if ($(this).hasClass('disabled')){
+					$(this).removeClass('disabled');
+					$(".typeahead").data('typeahead').source = sourceplaces;
+				} else {
+					$(this).addClass('disabled');
+					$(".typeahead").data('typeahead').source = sourceplaces2;
+				}
+			});
+			
+		
+			if (window.localStorage.getItem("clubs") == null){
+				var sclubs = new Array();
+			} else {
+				var sclubs = JSON.parse(window.localStorage.getItem("clubs"));
+			}
+			$(sclubs).each(function(key,value){
+				$('input[value="'+value+'"]').prop('checked',true).parent('label').addClass('active');
+			});
+			$('input[value="Putter"]').prop('checked',true).parent('label').addClass('active');
+		
+			var gender = window.localStorage.getItem("gender");
+			$('#genders input[value="'+gender+'"]').prop('checked',true).parent('label').addClass('active');
+			$('#tours .form-group ').hide();
+			$('#tours .'+gender).show();
+			
+			var profile = window.localStorage.getItem("profile");
+			$('#profiles input[value="'+profile+'"]').prop('checked',true).parent('label').addClass('active');
+			$('#'+profile+'op').show();
+
+			var protour = window.localStorage.getItem("protour");
+			if (protour != '' && protour != 'undefined'){
+				if ($('#tours input[value="'+protour+'"]').parent().parent().hasClass(gender)){
+					$('#tours input[value="'+protour+'"]').prop('checked',true).parent('label').addClass('active');
+					$('#tours label').not('.active').parent().fadeOut();
+				}
+			}
+			
+			var handicap = window.localStorage.getItem("handicap");
+			$('#handicap').val(handicap);
+			$('#handicapvalue').html(handicap);
+			
+			var pcourse = window.localStorage.getItem("pcourse");
+			$('#course').val(pcourse);
+		
+			var units = window.localStorage.getItem("units");
+			$('#units input[value="'+units+'"]').prop('checked',true).parent('label').addClass('active');
+		
+          $('#clubs label').click(function(event) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			  if ($('#'+$(this).attr('data-for')).val()=='Putter') return;
+			//console.log($('#clubs .active').length);
+			if ($(this).hasClass('active')){
+				$('#'+$(this).attr('data-for')).prop('checked',false);
+				$(this).removeClass('active');
+			} else {
+/*				if ($('#clubs .active').length > 13) {
+					$(this).removeClass('active');
+				} else {*/
+					$(this).addClass('active');
+					$('#'+$(this).attr('data-for')).prop('checked',true);
+			//console.log($('#clubs .active').length);
+//				}
+            }
+			var clubs = new Array();
+			$('#clubs .active input').each(function(){
+				clubs.push($(this).val());
+			});
+			window.localStorage.setItem("clubs", JSON.stringify(clubs));
+			return;
+          });
+		  
+		  
+		  $('#genders label').click(function(event) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			  if ($(this).hasClass('active')){
+				return;
+			} else {
+				$('#genders .active').removeClass('active');
+				$('#'+$('#genders .active').attr('data-for')).prop('checked',false);
+				$(this).addClass('active');
+				$('#'+$(this).attr('data-for')).prop('checked',true);
+            }
+			  $('#genders .active input').each(function(){
+				window.localStorage.setItem("gender", $(this).val());
+				$(this).prop('checked', true);
+				save_user_data();
+				$('#tours .form-group').hide();
+				$('#tours .'+$(this).val()).show();
+			  });
+		  });
+		  
+		  $('#profiles label').click(function(event) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			  if ($(this).hasClass('active')){
+				return;
+			} else {
+				$('#profiles .active').removeClass('active');
+				$('#'+$('#profiles .active').attr('data-for')).prop('checked',false);
+				$(this).addClass('active');
+				$('#'+$(this).attr('data-for')).prop('checked',true);
+            }
+				/*$('.profileop').hide();*/
+			  $('#profiles .active input').each(function(){
+				window.localStorage.setItem("profile", $(this).val());
+				$(this).prop('checked', true);
+				save_user_data();
+				if ($(this).val() == 'amateur'){
+					$('#professionalop').hide();
+					$('#amateurop').show();
+				} else {
+					$('#professionalop').show();
+					$('#amateurop').hide();
+				}
+			  });
+		  });
+		  
+		  $('#tours label').click(function(event) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			if ($(this).hasClass('active')){
+				/* $('#'+$(this).attr('data-for')).prop('checked',false);
+				$(this).removeClass('active'); */
+				$('#tours label').fadeIn();
+			} else {
+				$('#tours .active').removeClass('active');
+				$('#'+$('#tours .active').attr('data-for')).prop('checked',false);
+				$(this).addClass('active');
+				$('#tours label').not('.active').parent().fadeOut();
+				$('#'+$(this).attr('data-for')).prop('checked',true);
+            }
+			$('#tours .active input').each(function(){
+				window.localStorage.setItem("protour", $(this).val());
+				save_user_data();
+			});
+			return;
+          });
+		  $('#handicap').change(function(){
+				window.localStorage.setItem("handicap", $(this).val());
+				save_user_data();
+		  })
+		  $('#handicap').on("input change", function() { 
+				$('#handicapvalue').html($(this).val());
+		  });
+		  
+		  
+		   $('#units label').click(function(event) {
+			  event.preventDefault();
+			  event.stopPropagation();
+			  if ($(this).hasClass('active')){
+				return;
+			} else {
+				$('#units .active').removeClass('active');
+				$('#'+$('#units .active').attr('data-for')).prop('checked',false);
+				$(this).addClass('active');
+				$('#'+$(this).attr('data-for')).prop('checked',true);
+            }
+			  $('#units .active input').each(function(){
+				window.localStorage.setItem("units", $(this).val());
+				$(this).prop('checked', true);
+				save_user_data();
+			  });
+		  });
+		  
+		  $('#course').change(function(){
+				window.localStorage.setItem("pcourse", $(this).val());
+		  })
+		  
+		});
+		
+		
+		function geosuccess(pos) {
+		  crd = pos.coords;
+			$.ajax({
+					type: 'get',
+					cache: false,
+					url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+					data: {
+						'location': crd.latitude+','+crd.longitude,
+						'radius': '50000',
+						'keyword': 'golf course',
+						'key':'AIzaSyDoY5pf3EJ7XzcI-jvpYg3s6s2uG3BiCVY'
+					},
+					dataType: 'json',
+					success: function(response){
+						var html = '';
+						for (i=0;i<response.results.length;i++){
+							 //console.log(response.results[i].name);
+							sourceplaces[i]=response.results[i].name;
+							html += response.results[i].name+'<br>';
+						}
+						//$('#coursesops').html(html);
+						
+						$('.typeahead').typeahead({
+							source: sourceplaces
+						});
+					}
+				});
+		  
+		};
+		
+		function geoError(error) {
+			alert('code: '    + error.code    + '\n' +
+				  'message: ' + error.message + '\n');
+		}
+		
+		
+		
+		$('#saveconfig').click(function(){
+			var oldpwd = $('input[name=password]').val();
+			var newpwd = $('input[name=newpassword]').val();
+			var newpwd2 = $('input[name=newpassword2]').val();
+			if (oldpwd == '' || newpwd == '' || newpwd2 == ''){
+				alert('Enter your current password, new password and confirm new password.');
+				return;
+			}
+			
+			//if (oldpwd != )
+			if (newpwd != newpwd2){
+				alert('The confirmation of the new password does not match.');
+				return;
+			}
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_change_password',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'password':oldpwd,
+					'newpassword':newpwd,
+					'newpassword2':newpwd2
+				},
+				dataType: 'json',
+				success: function(response){
+					if (response == true)
+						alert('Password changed');
+					else 
+						alert('Error updating new password.');
+				}
+			});
+		});
+		
+		
+		function save_user_data()
+		{
+			var gender = $('input[name=gender]:checked').val();
+			var profile = $('input[name=profile]:checked').val();
+			var handicap = $('input[name=handicap]').val();
+			var tour = $('input[name=tour]:checked').val();
+			var units = $('input[name=units]:checked').val();
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/save_user_data',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'gender':gender,
+					'profile':profile,
+					'handicap':handicap,
+					'tour':tour,
+					'units':units
+				},
+				dataType: 'json',
+				success: function(response){
+					
+				}
+			});
+		}
+    </script>
+</body>
+
+</html>

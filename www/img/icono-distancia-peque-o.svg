@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>F444898F-909F-42A2-86FD-86068C1E2441</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="4.99471182" y="4.99471182" width="23.845721" height="23.845721" rx="4"></rect>
+        <filter x="-14.4%" y="-125.9%" width="128.8%" height="351.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0.717075893" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="elementos/iconos/iconosAccion/Icono-Distancia-pequeño">
+            <g id="Group" transform="translate(3.000000, 2.000000)">
+                <g id="Icono-Jugar">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <rect x="4.99471182" y="4.99471182" width="23.845721" height="23.845721" rx="4"></rect>
+                    <g id="color/affirmative-blanco" mask="url(#mask-2)" fill="#FFFFFF">
+                        <g transform="translate(-0.427210, -0.213605)" id="Rectangle-Copy-5">
+                            <rect x="0" y="0" width="35.4375" height="36.45"></rect>
+                        </g>
+                    </g>
+                    <ellipse id="Oval" fill="#D9FDFC" mask="url(#mask-2)" cx="16.3987651" cy="31.6135428" rx="26.0109909" ry="11.107461"></ellipse>
+                    <ellipse id="Oval-2" fill-opacity="0.173913043" fill="#8AACAA" filter="url(#filter-3)" mask="url(#mask-2)" cx="17.0884015" cy="34.8176181" rx="7.47617567" ry="1"></ellipse>
+                    <g id="Regla" mask="url(#mask-2)">
+                        <g transform="translate(-7.000000, 11.000000)">
+                            <rect id="Rectangle-11" stroke="none" fill="#F8DFB7" fill-rule="evenodd" x="0" y="0" width="29" height="5"></rect>
+                            <path d="M27.5,2.5 L27.5,4.5" id="Line" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M23.5,2.5 L23.5,4.5" id="Line-Copy" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M25.5,3.5 L25.5,4.5" id="Line-2" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M21.5,3.5 L21.5,4.5" id="Line-2-Copy" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M19.5,2.5 L19.5,4.5" id="Line-Copy-2" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M17.5,3.5 L17.5,4.5" id="Line-2-Copy-2" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M15.5,2.5 L15.5,4.5" id="Line-Copy-3" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M13.5,3.5 L13.5,4.5" id="Line-2-Copy-3" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M15.5,2.5 L15.5,4.5" id="Line-Copy-4" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M13.5,3.5 L13.5,4.5" id="Line-2-Copy-4" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M11.5,2.5 L11.5,4.5" id="Line-Copy-5" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                            <path d="M9.5,3.5 L9.5,4.5" id="Line-2-Copy-5" stroke="#C29C7B" stroke-width="1" fill="none" stroke-linecap="square"></path>
+                        </g>
+                    </g>
+                    <rect id="Rectangle-2" stroke="#50E3C2" stroke-width="2" mask="url(#mask-2)" transform="translate(16.917572, 17.131177) rotate(46.000000) translate(-16.917572, -17.131177) " x="5.99471182" y="6.20831684" width="21.845721" height="21.845721" rx="4"></rect>
+                    <rect id="Rectangle-2" stroke="#00BCB4" mask="url(#mask-2)" transform="translate(16.917572, 16.917572) rotate(46.000000) translate(-16.917572, -16.917572) " x="5.49471182" y="5.49471182" width="22.845721" height="22.845721" rx="4"></rect>
+                </g>
+                <ellipse id="Oval-2" fill-opacity="0.160000011" fill="#8EAFAE" cx="16.941389" cy="34.7500333" rx="5.19311292" ry="1"></ellipse>
+            </g>
+            <ellipse id="Oval-Copy" fill="#46A19D" cx="20.3034818" cy="24.9185415" rx="3.30348183" ry="1"></ellipse>
+            <text id="m" font-family="Gesta-Regular, Gesta" font-size="6" font-weight="normal" fill="#494949">
+                <tspan x="26" y="21">m</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

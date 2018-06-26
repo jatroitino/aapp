@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>elementos/iconos/input/</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="elementos/iconos/input" fill-rule="nonzero" fill="#0076FF">
+            <g id="AllIcons-06" transform="translate(4.000000, 4.000000)">
+                <path d="M20.0046512,2.2 C18.0604651,0.204651163 16.5767442,0.511627907 16.5767442,0.511627907 L9.72093023,7.36744186 L1.84186047,15.2465116 L0.460465116,21.744186 L6.95813953,20.3627907 L14.8372093,12.4837209 L21.6930233,5.62790698 C21.6930233,5.62790698 22,4.14418605 20.0046512,2.2 Z M6.6,19.544186 L4.4,20.0046512 C4.19534884,19.5953488 3.93953488,19.1860465 3.47906977,18.7255814 C3.01860465,18.2651163 2.60930233,18.0093023 2.2,17.8046512 L2.66046512,15.6046512 L3.2744186,14.9906977 C3.2744186,14.9906977 4.45116279,14.9906977 5.83255814,16.372093 C7.21395349,17.7534884 7.21395349,18.9302326 7.21395349,18.9302326 L6.6,19.544186 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

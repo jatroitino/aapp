@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>GolfinUp</title>
+</head>
+
+<body id="resume">
+    <div class="app container">
+		<div class="row">
+			<div class="col-12">
+					<h2><img src="img/icono-campo.svg" />   Round resume</h2>
+					<p>   <span id="course"></span></p>
+					<div id="datas" class="container-fluid">
+						<div id="cdata" class="row no-gutters">
+							<div class="half col-7">Conditions: <span id="weather"></span></div>
+							<div class="half col-5">Wind: <span id="wind"></span></div>
+							<div class="half col-7">Play type: <span id="game_type"></span></div>
+							<div class="half col-5">Tees: <span id="bars"></span></div>
+						</div>
+						<div id="rdata" class="row aleft no-gutters">
+							<div class="col-4">Holes:</div><div class="col-8"><span id="Tholes"></span></div>
+							<div class="col-4">Par:</div><div class="col-8"><span id="Tpar"></span></div>
+							<div class="col-4">Yardage:</div><div class="col-8"><span id="Tyardage"></span></div>
+						</div>
+						<div id="tdata" class="row aleft no-gutters">
+							<div class="col-6">Score:<br><span id="Tscore"></span></div>
+							<div class="col-6">SG:<br><span id="Tsg"></span></div>
+							<div class="col-12"></div>
+						</div>
+					</div>
+			</div>
+			<div class="col-6 aright">
+				<a href="home.html" class="btn btn-secondary finish">Dashboard</a>
+			</div>
+			<div class="col-6 aleft">
+				<a href="stats.html" class="btn btn-info finish">Stats</a>
+			</div>
+		</div>
+    </div>
+<footer class="fixed-bottom">
+	<div class="container-fluid">
+		<div class="col-3">
+			<a href="home.html">
+				<img src="img/home_inactive.svg"><br>Dashboard
+			</a>
+		</div>
+		<div class="col-3 active">
+			<a href="play.html">
+				<img src="img/input.svg"><br>Input
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="stats.html">
+				<img src="img/stats_inactive.svg"><br>Stats
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="ajustes.html">
+				<img src="img/ajustes_inactive.svg"><br>Config.
+			</a>
+		</div>
+	</div>
+</footer>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		
+		$(document).ready(function(){
+			$('#course').html(window.localStorage.getItem("course"));
+			$('#wind').html(window.localStorage.getItem("wind"));
+			$('#weather').html(window.localStorage.getItem("weather"));
+			$('#game_type').html(window.localStorage.getItem("game_type"));
+			$('#bars').html(window.localStorage.getItem("bars"));
+			
+			
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/ajax_get_resume',
+				data: {
+					'user_id':window.localStorage.getItem("user_id"),
+					'tour':window.localStorage.getItem("tour")
+				},
+				dataType: 'json',
+				success: function(response){
+					$('#Tholes').html(response.Tholes);
+					$('#Tpar').html(response.Tpar);
+					$('#Tyardage').html(response.Tyardage);
+					$('#Tscore').html(response.Tscore);
+					$('#Tsg').html(response.Tsg);
+				}
+			});
+		});
+		
+
+		$('.finish').click(function(){
+			window.localStorage.removeItem("course");
+			window.localStorage.removeItem("wind");
+			window.localStorage.removeItem("weather");
+			window.localStorage.removeItem("game_type");
+			window.localStorage.removeItem("bars");
+		});
+
+    </script>
+</body>
+
+</html>

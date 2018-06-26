@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>GolfinUp</title>
+</head>
+
+<body id="play">
+    <div class="app container">
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
+				<div id="logo">
+					<img src="img/icono-jugar.svg" />
+					<h2>Let's start!</h2>
+				<div id="askcourse" style="display: none;">
+					<p>Continue with:</p>
+					<span id="opentour"></span>
+					<p>or start a new round?</p>
+					<button type="button" id="bcontinue" class="btn btn-info continueround">Continue</button>
+					<button type="button" id="bnew" class="btn btn-info newround">New round</button>
+
+				</div>
+				<div id="selectcourse">
+					<span class="clearable">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<div class="input-group-text"><a id="nearme" href="">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 21 21" style="enable-background:new 0 0 21 21;" xml:space="preserve"><style type="text/css">.cls-1{fill:#0076ff;stroke:#0076ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}</style><title>navigation</title><g id="elementos_x2F_iconos_x2F_localizacion" transform="translate(-5.000000, -5.000000)"><g id="navigation" transform="translate(6.000000, 6.000000)"><polygon id="Shape" class="cls-1" points="0,9 19,0 10,19 8,11"/></g></g></svg>
+							</a></div>
+						</div>
+						<input type="text" name="course" id="course" class="form-control typeahead"  placeholder="Type course..." />
+					</div>
+						<i class="clearable__clear">&times;</i>
+					</span>
+					<div class="clearfix"></div>
+
+						<div id="coursesops"></div>
+						<a href="" id="tonext" class="btn btn-info">Next</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+    </div>
+<footer class="fixed-bottom">
+	<div class="container-fluid">
+		<div class="col-3">
+			<a href="home.html">
+				<img src="img/home_inactive.svg"><br>Dashboard
+			</a>
+		</div>
+		<div class="col-3 active">
+			<a href="play.html">
+				<img src="img/input.svg"><br>Input
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="stats.html">
+				<img src="img/stats_inactive.svg"><br>Stats
+			</a>
+		</div>
+		<div class="col-3">
+			<a href="ajustes.html">
+				<img src="img/ajustes_inactive.svg"><br>Config.
+			</a>
+		</div>
+	</div>
+</footer>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/play.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		var sourceplaces = [];
+		var sourceplaces2 = JSON.parse(window.localStorage.getItem('sourceplaces2'));
+		if (sourceplaces2 == null){
+			sourceplaces2 = new Array();
+		}
+		
+		var crd;
+		var last_tour;
+		$(document).ready(function(){
+			//navigator.geolocation.getCurrentPosition(geosuccess,geoError,{ enableHighAccuracy: true });
+			var pcourse = window.localStorage.getItem("pcourse");
+			if (pcourse != undefined && pcourse != ''){
+				$("#course").val(pcourse);
+				$(".clearable__clear").toggle(true);
+			}
+			
+			$.ajax({
+				type: 'post',
+				cache: false,
+				url: 'http://golfinup.com/privado/get_last_tour',
+				data: {
+					'user_id':window.localStorage.getItem("user_id")
+				},
+				dataType: 'json',
+				success: function(response){
+					console.log(response);
+					last_tour = parseInt(response.tour);
+					if (response.closed != 0){
+						window.localStorage.setItem("tour",last_tour+1);
+						window.localStorage.setItem("shole",1);
+						window.localStorage.setItem("strike",1);
+						window.localStorage.setItem("pstrike",0);
+						$('#course').val(window.localStorage.getItem("pcourse"));
+					} else {
+						$('#opentour').html(response.course+' <b>|</b> '+response.date);
+						$("#selectcourse").hide();
+						$("#askcourse").fadeIn();
+					}
+					//window.localStorage.setItem("tour",parseInt(response)+1);
+					//window.location.href = 'input.html';
+					
+				}
+			});
+		});
+		
+		$('#bnew').click(function(){
+			$("#askcourse").hide();
+			$("#selectcourse").fadeIn();
+			window.localStorage.setItem("tour",parseInt(last_tour)+1);
+			window.localStorage.setItem("shole",1);
+			window.localStorage.setItem("strike",1);
+			window.localStorage.setItem("pstrike",0);
+			$('#course').val(window.localStorage.getItem("pcourse"));
+		});
+		$('#bcontinue').click(function(){
+			window.location.href='holes.html';
+		});
+
+		$('input[name="course"]').change(function(){
+			window.localStorage.setItem("course", $(this).val());
+		});
+
+		$('#nearme').click(function(event){
+			event.preventDefault();
+			if ($(this).hasClass('disabled')){
+				$(this).removeClass('disabled');
+				$(".typeahead").data('typeahead').source = sourceplaces;
+			} else {
+				$(this).addClass('disabled');
+				$(".typeahead").data('typeahead').source = sourceplaces2;
+			}
+		});
+		
+		$('#tonext').click(function(e){
+			e.preventDefault();
+			
+			if (!sourceplaces2.includes($('#course').val())){
+				sourceplaces2.push($('#course').val());
+				window.localStorage.setItem('sourceplaces2',JSON.stringify(sourceplaces2));
+			}
+			
+			window.location.href='condiciones.html';
+		});
+		
+		$(".clearable").each(function() {
+			var $inp = $(this).find("input:text"),
+			$cle = $(this).find(".clearable__clear");
+			$inp.on("input", function(){
+				$cle.toggle(!!this.value);
+			});
+			$cle.on("touchstart click", function(e) {
+				e.preventDefault();
+				$inp.val("").trigger("input");
+			});
+		});
+		
+		function geosuccess(pos) {
+		  crd = pos.coords;
+			$.ajax({
+					type: 'get',
+					cache: false,
+					url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+					data: {
+						'location': crd.latitude+','+crd.longitude,
+						'radius': '50000',
+						'keyword': 'golf course',
+						'key':'AIzaSyDoY5pf3EJ7XzcI-jvpYg3s6s2uG3BiCVY'
+					},
+					dataType: 'json',
+					success: function(response){
+						var html = '';
+						for (i=0;i<response.results.length;i++){
+							 //console.log(response.results[i].name);
+							sourceplaces[i]=response.results[i].name;
+							html += response.results[i].name+'<br>';
+						}
+						//$('#coursesops').html(html);
+						
+						$('.typeahead').typeahead({
+							source: sourceplaces
+						});
+					}
+				});
+		  
+		};
+		
+		function geoError(error) {
+			alert('code: '    + error.code    + '\n' +
+				  'message: ' + error.message + '\n');
+		}
+    </script>
+</body>
+
+</html>

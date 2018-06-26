@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>4636FD0B-A236-460F-9BB6-795DDFFC665F</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="4.99471182" y="4.99471182" width="23.845721" height="23.845721" rx="4"></rect>
+        <filter x="-14.4%" y="-125.9%" width="128.8%" height="351.8%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="0.717075893" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="elementos/iconos/iconosAccion/Icono-Hoyo-pequeño">
+            <g id="Group" transform="translate(3.000000, 2.000000)">
+                <g id="Icono-Jugar">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <rect x="4.99471182" y="4.99471182" width="23.845721" height="23.845721" rx="4"></rect>
+                    <g id="color/affirmative-blanco" mask="url(#mask-2)" fill="#FFFFFF">
+                        <g transform="translate(-0.427210, -0.213605)" id="Rectangle-Copy-5">
+                            <rect x="0" y="0" width="35.4375" height="36.45"></rect>
+                        </g>
+                    </g>
+                    <ellipse id="Oval" fill="#D9FDFC" mask="url(#mask-2)" cx="16.3987651" cy="31.6135428" rx="26.0109909" ry="11.107461"></ellipse>
+                    <ellipse id="Oval-2" fill-opacity="0.173913043" fill="#8AACAA" filter="url(#filter-3)" mask="url(#mask-2)" cx="17.0884015" cy="34.8176181" rx="7.47617567" ry="1"></ellipse>
+                    <path d="M15.5601548,10.0130926 L15,10 L15,32.5450173 L15.2800096,32.5450173 C15.4365681,32.5450173 15.5299498,32.5406531 15.5601548,32.5319247 L15.5601548,10.0130926 Z" id="Path" fill="#9B9B9B" mask="url(#mask-2)"></path>
+                    <circle id="Oval" fill="#9B9B9B" mask="url(#mask-2)" cx="15.2498418" cy="9.47650938" r="1"></circle>
+                    <rect id="Rectangle-2" stroke="#50E3C2" stroke-width="2" mask="url(#mask-2)" transform="translate(16.917572, 17.131177) rotate(46.000000) translate(-16.917572, -17.131177) " x="5.99471182" y="6.20831684" width="21.845721" height="21.845721" rx="4"></rect>
+                    <rect id="Rectangle-2" stroke="#00BCB4" mask="url(#mask-2)" transform="translate(16.917572, 16.917572) rotate(46.000000) translate(-16.917572, -16.917572) " x="5.49471182" y="5.49471182" width="22.845721" height="22.845721" rx="4"></rect>
+                    <polygon id="Path-3" fill="#94F3EF" mask="url(#mask-2)" points="16 11 16 15.0234835 22.9334079 12.7562272"></polygon>
+                </g>
+                <ellipse id="Oval-2" fill-opacity="0.160000011" fill="#8EAFAE" cx="16.941389" cy="34.7500333" rx="5.19311292" ry="1"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>
