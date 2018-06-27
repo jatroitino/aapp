@@ -23,7 +23,7 @@ var app = {
 		$('.app').hide().fadeIn('slow');
 		var username = window.localStorage.getItem("username");
 		if (username == null && typeof ppublic == "undefined"){
-			window.location.href='index.html';
+		//	window.location.href='index.html';
 		}
 		var oHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 		$(window).resize(function(e) {

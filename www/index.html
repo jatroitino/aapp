@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>GolfinUp</title>
+    <title>Alfran</title>
 </head>
 
 <body id="index">
@@ -37,12 +37,13 @@
 					  </button>
 					  <p></p>
 					</div>
-					<input type="text" id="login_string" name="username" class="form-control" placeholder="User or email" />
+					<input type="text" id="login_string" name="username" class="form-control" placeholder="Email" />
 					<input type="password" id="login_pass" name="password" class="form-control" placeholder="******" />
-					<p><a class="btn btn-warning btn-sm" href="http://golfinup.com/Users/recover">Forgot your password?</a></p>
-					<input type="submit" id="login_submit" value="Login" class="btn btn-info" />
+					
+					<!-- <input type="submit" id="login_submit" value="Login" class="btn btn-info" /> -->
+					<a class="btn btn-info" href="home.html">Login</a>
 					<p></p>
-					<a class="btn btn-warning btn-sm" href="registro.html">Register account</a>
+					<a class="btn btn-warning btn-sm" href="registro.html">Sign up</a>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
@@ -67,7 +68,7 @@
 					$.ajax({
 						type: 'post',
 						cache: false,
-						url: 'http://golfinup.com/users/ajax_attempt_login',
+						url: 'http://proyectosweb.info/alfranapp/users/ajax_attempt_login',
 						data: {
 							'login_string': $('#login_string').val(),
 							'login_pass': $('#login_pass').val()

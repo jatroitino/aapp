@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>GolfinUp</title>
+    <title>Alfran</title>
 </head>
 
 <body id="registro">
@@ -34,7 +34,6 @@
 					  <p></p>
 					</div>
 					
-					<h3>Create your account, it's easy</h3>
 					<input type="text" id="register_user" name="username" class="form-control" placeholder="Username" />
 					<input type="text" id="register_email" name="email" class="form-control" placeholder="Email" />
 					<input type="password" id="register_pass" name="password" class="form-control" placeholder="Password" />
@@ -66,7 +65,7 @@
 					$.ajax({
 						type: 'post',
 						cache: false,
-						url: 'http://golfinup.com/users/ajax_attempt_register',
+						url: 'http://proyectosweb.info/alfranpp/users/ajax_attempt_register',
 						data: {
 							'register_user': $('#register_user').val(),
 							'register_email': $('#register_email').val(),

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css" />
+	
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Alfran</title>
+</head>
+
+<body id="home">
+<nav class="navbar fixed-top">
+  <a class="navbar-brand" href="home.html">< Home</a>
+  <span class="navbar-text mx-auto">
+      <h1></h1>
+  </span>
+</nav>
+    <div class="app container">
+		<div class="row">
+			<div class="col-12 btns acenter">
+				<table class="table table-bordered">
+				  <tbody>
+					<tr>
+					  <th scope="row">Tª max</th>
+					  <td colspan="2" id="tmax"></td>
+					</tr>
+					<tr>
+					  <th scope="row">Density</th>
+					  <td colspan="2" id="densidad"></td>
+					</tr>
+					<tr>
+					  <th scope="row">Mix. time</th>
+					  <td colspan="2" id="tamasado"></td>
+					</tr>
+					<tr>
+					  <th scope="row">Mix. liquid</th>
+					  <td id="lamasadomax"></td>
+					  <td id="lamasadomin"></td>
+					</tr>
+				  </tbody>
+				</table>
+				<hr>
+				<table class="table table-bordered">
+				  <tbody>
+					<tr>
+					  <th scope="row">SiO<sub>2</sub></th>
+					  <td id="sio2"></td>
+					  <th scope="row">Al<sub>2</sub>O<sub>3</sub></th>
+					  <td id="al2o3"></td>
+					</tr>
+					<tr>
+					  <th scope="row">TiO<sub>2</sub></th>
+					  <td id="tio2"></td>
+					  <th scope="row">Fe<sub>2</sub>O<sub>3</sub></th>
+					  <td id="fe2o3"></td>
+					</tr>
+					<tr>
+					  <th scope="row">CaO</th>
+					  <td id="cao"></td>
+					  <th scope="row">MgO</th>
+					  <td id="mgo"></td>
+					</tr>
+					<tr>
+					  <th scope="row">Alcalis</th>
+					  <td id="alcalis"></td>
+					  <th scope="row">SiC</th>
+					  <td id="sic"></td>
+					</tr>
+					<tr>
+					  <th scope="row">ZrO<sub>2</sub></th>
+					  <td id="zro2"></td>
+					  <th scope="row">Cr<sub>2</sub>O<sub>3</sub></th>
+					  <td id="cr2o3"></td>
+					</tr>
+					<tr>
+					  <th scope="row">BaSO<sub>4</sub></th>
+					  <td id="baso4"></td>
+					  <th scope="row">CaF<sub>2</sub></th>
+					  <td id="caf2"></td>
+					</tr>
+				  </tbody>
+				</table>
+				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Security Data Sheet</a>
+			</div>
+		</div>
+    </div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+		
+		$(document).ready(function(){
+			$('#username').html(window.localStorage.getItem("username"));
+			$('#logout').click(function(){
+				window.localStorage.removeItem("username");
+				window.location.href = "index.html";
+			});
+			$get = getUrlVars();
+			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
+				$('h1').html(data.description);
+				$('#tmax').html(data.tmax+' ºC');
+				$('#densidad').html(data.densidad+' g/cc');
+				$('#tamasado').html(data.tamasado+' min');
+				$('#lamasadomax').html(data.lamasadomax+' l');
+				$('#lamasadomin').html(data.lamasadomin+' l');
+				$('#sio2').html(data.sio2);
+				$('#al2o3').html(data.al2o3);
+				$('#tio2').html(data.tio2);
+				$('#fe2o3').html(data.fe2o3);
+				$('#cao').html(data.cao);
+				$('#mgo').html(data.mgo);
+				$('#alcalis').html(data.alcalis);
+				$('#sic').html(data.sic);
+				$('#zro2').html(data.zro2);
+				$('#cr2o3').html(data.cr2o3);
+				$('#baso4').html(data.baso4);
+				$('#caf2').html(data.caf2);
+				$('#qr').attr('href',data.qr);
+				var html;
+				$.each(data, function(index, item) {
+					html += '<p>'+index+'-'+item+'</p>';
+				});
+				$('#pdata').html(html);
+
+			});
+		});
+		
+		function getUrlVars()
+		{
+			var vars = [], hash;
+			var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+			for(var i = 0; i < hashes.length; i++)
+			{
+				hash = hashes[i].split('=');
+				vars.push(hash[0]);
+				vars[hash[0]] = hash[1];
+			}
+			return vars;
+		}
+    </script>
+</body>
+
+</html>
