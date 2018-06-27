@@ -58,24 +58,36 @@ nav.navbar h1 {    font-size: 20px;
 
 .app.container {padding-top:60px;}
 
-#index {text-align:center;background-color:#ffffff;}
-#index #logo {margin-top:10%;}
-#index input[type="text"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
-#index input[type="password"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
-
-
-
-#registro {text-align:center;}
-#registro h3{color:#fff;font-size:18px;}
-#registro #logo {margin-top:10%;}
-#registro input[type="text"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
-#registro input[type="password"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
-
-
 .btn-info {background: #e40612;border-color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}
 .btn-warning {background: #e40612;border-color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;color: #fff;}
 .btn-danger {margin-top: 20px;border-radius:40px;padding:10px 40px;}
 .btn-sm {margin-top: 10px;margin-bottom: 10px;border-radius:20px;padding:5px 10px;font-size:10px;}
+
+.badge-primary {
+    color: #fff;
+    background-color: #e40612;
+        font-size: 14px;
+	    font-weight: 500;
+}
+
+#index {text-align:center;background-color:#e40612;}
+#index #logo {margin-top:0%;}
+#index input[type="text"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
+#index input[type="password"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
+
+#index .btn-info {background: #fff;border-color:#e40612;color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}
+#index .btn-warning {background: #fff;border-color:#e40612;color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}
+
+
+#registro {text-align:center;background-color:#e40612;}
+#registro h3{color:#fff;font-size:18px;}
+#registro #logo {margin-top:0%;}
+#registro input[type="text"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
+#registro input[type="password"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
+
+#registro .btn-info {background: #fff;border-color:#e40612;color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}
+#registro .btn-warning {background: #fff;border-color:#e40612;color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}
+
 
 #home {text-align:center;padding-top:5%;height: 100vh;}
 
