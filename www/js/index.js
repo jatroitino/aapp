@@ -39,7 +39,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-		 document.addEventListener("menubutton", onMenuKeyDown, false);
+		 document.addEventListener("backbutton", onBackKeyDown, false);
 		/* document.addEventListener('hidekeyboard', onKeyboardHide, false);
 		document.addEventListener('showkeyboard', onKeyboardShow, false); */
     },
