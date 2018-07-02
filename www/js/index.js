@@ -25,17 +25,6 @@ var app = {
 		if (username == null && typeof ppublic == "undefined"){
 		//	window.location.href='index.html';
 		}
-		var oHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-		$(window).resize(function(e) {
-			aHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			if (aHeight < oHeight){
-				$('footer').hide();
-			} else {
-				$('footer').show();
-			}
-		   return false;
-		});
-		
     },
     // Bind Event Listeners
     //
@@ -50,12 +39,15 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		 document.addEventListener("menubutton", onMenuKeyDown, false);
 		/* document.addEventListener('hidekeyboard', onKeyboardHide, false);
 		document.addEventListener('showkeyboard', onKeyboardShow, false); */
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-    }/* ,
+    }
+	
+	/* ,
 	onKeyboardShow: function(){
        $('footer').hide();
 	},

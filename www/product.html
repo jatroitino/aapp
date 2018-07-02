@@ -25,7 +25,7 @@
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="home.html">< Home</a>
+  <a class="navbar-brand" href="tdatas.html">< Back</a>
   <span class="navbar-text mx-auto">
       <h1></h1>
   </span>
@@ -36,7 +36,7 @@
 				<table class="table table-bordered">
 				  <tbody>
 					<tr>
-					  <th scope="row">Tª max</th>
+					  <th scope="row">Max Temp</th>
 					  <td colspan="2" id="tmax"></td>
 					</tr>
 					<tr>
@@ -48,7 +48,7 @@
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. liquid</th>
+					  <th scope="row">Mix. liquid (min/max)</th>
 					  <td id="lamasadomax"></td>
 					  <td id="lamasadomin"></td>
 					</tr>
@@ -95,7 +95,7 @@
 					</tr>
 				  </tbody>
 				</table>
-				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Security Data Sheet</a>
+				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Security Data Sheet (EN/ES)</a>
 			</div>
 		</div>
     </div>
@@ -120,7 +120,7 @@
 			$get = getUrlVars();
 			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
-				$('#tmax').html(data.tmax+' ºC');
+				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
 				$('#lamasadomax').html(data.lamasadomax+' l');
@@ -159,6 +159,10 @@
 			}
 			return vars;
 		}
+		function onBackKeyDown() {
+			window.location.href = 'tdatas.html';
+		}
+
     </script>
 </body>
 
