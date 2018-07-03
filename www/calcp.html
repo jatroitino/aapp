@@ -144,7 +144,7 @@ button[data-setter]:hover { opacity: 0.5; }
 				<table class="table table-bordered">
 				  <tbody>
 					<tr>
-					  <th scope="row">Tª max</th>
+					  <th scope="row">Max Temp</th>
 					  <td colspan="2" id="tmax"></td>
 					</tr>
 					<tr>
@@ -156,14 +156,14 @@ button[data-setter]:hover { opacity: 0.5; }
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. liquid</th>
+					  <th scope="row">Mix. liquid (min/max)</th>
 					  <td id="lamasadomax"></td>
 					  <td id="lamasadomin"></td>
 					</tr>
 				  </tbody>
 				</table>
 				
-				<span class="badge badge-primary" >1 MINUTE IN DRY MIXING IS NEEDED<br>BEFORE ADD WATER</span>
+				<span class="badge badge-primary" >1 MINUTE OF DRY MIXING IS NEEDED<br>BEFORE ADDING WATER</span>
 			</div>
 		</div>		
 		<div class="row">
@@ -215,7 +215,7 @@ button[data-setter]:hover { opacity: 0.5; }
 				update(wholeTime,wholeTime);
 				displayTimeLeft(wholeTime);
 				
-				$('#tmax').html(data.tmax+' ºC');
+				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+30)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
 				$('#lamasadomax').html(data.lamasadomax+' l');
@@ -365,6 +365,10 @@ function displayTimeLeft (timeLeft){ //displays time on the input
 }
 
 pauseBtn.addEventListener('click',pauseTimer);
+
+		function onBackKeyDown() {
+			window.location.href = 'calc.html';
+		}
 </script>
 </body>
 
