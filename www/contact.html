@@ -55,9 +55,11 @@
 				window.localStorage.removeItem("username");
 				window.location.href = "index.html";
 			});
-			$.get("http://proyectosweb.info/alfranapp/home/contact", null, function(data) {
+			/* $.get("http://proyectosweb.info/alfranapp/home/contact", null, function(data) {
 				$('#contacttxt').html(data);
-			});
+			}); */
+			
+			$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
 		});
     </script>
 </body>

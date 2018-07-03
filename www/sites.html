@@ -21,7 +21,7 @@
     <title>Alfran</title>
 </head>
 
-<body id="home">
+<body id="sites">
 <nav class="navbar fixed-top">
   <a class="navbar-brand" href="home.html">< Home</a>
   <span class="navbar-text mx-auto">
@@ -31,6 +31,9 @@
     <div class="app container">
 		<div class="row">
 			<div class="col-12 btns acenter" id="sitestxt">
+				
+			</div>
+			<div class="col-12 btns acenter" id="contacttxt">
 				
 			</div>
 		</div>
@@ -55,6 +58,7 @@
 			$.get("http://proyectosweb.info/alfranapp/home/sites", null, function(data) {
 				$('#sitestxt').html(data);
 			});
+			$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
 		});
     </script>
 </body>
