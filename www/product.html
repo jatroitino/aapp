@@ -36,7 +36,7 @@
 				<table class="table table-bordered">
 				  <tbody>
 					<tr>
-					  <th scope="row">Tª max</th>
+					  <th scope="row">Max. Temp.</th>
 					  <td colspan="2" id="tmax"></td>
 					</tr>
 					<tr>
@@ -48,9 +48,9 @@
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. liquid</th>
-					  <td id="lamasadomax"></td>
+					  <th scope="row">Mix. liq.(min/max)(liters)</th>
 					  <td id="lamasadomin"></td>
+					  <td id="lamasadomax"></td>
 					</tr>
 				  </tbody>
 				</table>
@@ -76,7 +76,7 @@
 					  <td id="mgo"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Alcalis</th>
+					  <th scope="row">Alkalis</th>
 					  <td id="alcalis"></td>
 					  <th scope="row">SiC</th>
 					  <td id="sic"></td>
@@ -95,7 +95,9 @@
 					</tr>
 				  </tbody>
 				</table>
-				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Security Data Sheet</a>
+				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Safety Data Sheet (ES/EN)</a>
+				<br><br>
+				<span class="badge badge-primary" >Las propiedades que aparecen en esta base de datos representan resultados promedio típicos obtenidos mediante métodos de ensayo estándar ISO (a menos que se indique lo contrario), se llevan a cabo bajo condiciones controladas y no se deben considerar especificaciones garantizadas. Las propiedades están sujetas a rangos de desviación estadística en la fabricación y Refractarios Alfran, S.A., se reserva el derecho de modificar las especificaciones y propiedades en cualquier momento sin previo aviso. Refractarios Alfran, S.A. se exime de cualquier garantía expresa o implícita, basada en esta ficha. </span>
 			</div>
 		</div>
     </div>
@@ -120,7 +122,7 @@
 			$get = getUrlVars();
 			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
-				$('#tmax').html(data.tmax+' ºC');
+				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+30)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
 				$('#lamasadomax').html(data.lamasadomax+' l');
