@@ -326,6 +326,7 @@ function timer (seconds){ //counts time, takes seconds
       displayTimeLeft(wholeTime);
       pauseBtn.classList.remove('pause');
       pauseBtn.classList.add('play');
+	  navigator.notification.beep(2);
       return ;
     }
     displayTimeLeft(timeLeft);
