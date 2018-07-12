@@ -97,6 +97,14 @@
 					return false;
 				});
 			});
+			
+		function onBackKeyDown() {
+			if (confirm('Are you sure you want to logout?')){
+				navigator.app.exitApp();
+			} else {
+				return false;
+			}
+		}
 		</script>
 </body>
 
