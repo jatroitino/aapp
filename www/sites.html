@@ -23,9 +23,12 @@
 
 <body id="sites">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="home.html">< Home</a>
+  <a class="len navbar-brand" href="home.html">< Home</a>
+  <a class="les navbar-brand" href="home.html">< Portada</a>
+
   <span class="navbar-text">
-      <h1>Global sites</h1>
+      <h1 class="len">Global sites</h1>
+      <h1 class="les">Sedes</h1>
   </span>
 </nav>
     <div class="app container">
@@ -50,15 +53,14 @@
         app.initialize();
 		
 		$(document).ready(function(){
-			$('#username').html(window.localStorage.getItem("username"));
-			$('#logout').click(function(){
-				window.localStorage.removeItem("username");
-				window.location.href = "index.html";
-			});
-			$.get("http://proyectosweb.info/alfranapp/home/sites", null, function(data) {
+
+			$.get("http://proyectosweb.info/alfranapp/home/sites", {'lang':language}, function(data) {
 				$('#sitestxt').html(data);
 			});
-			$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
+			if (language == 'es')
+				$( "#contacttxt" ).load( "https://www.alfran.es/contacto/ .vc_custom_1492679604848 .vc_tta-container" );
+			else
+				$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
 		});
 		function onBackKeyDown() {
 			window.location.href = 'home.html';

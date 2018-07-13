@@ -25,9 +25,11 @@
 
 <body id="contact">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="home.html">< Home</a>
+  <a class="len navbar-brand" href="home.html">< Home</a>
+  <a class="les navbar-brand" href="home.html">< Portada</a>
   <span class="navbar-text">
-      <h1>Technical contact</h1>
+      <h1 class="len">Technical contact</h1>
+      <h1 class="les">Contacto</h1>
   </span>
 </nav>
     <div class="app container">
@@ -58,8 +60,10 @@
 			/* $.get("http://proyectosweb.info/alfranapp/home/contact", null, function(data) {
 				$('#contacttxt').html(data);
 			}); */
-			
-			$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
+			if (language == 'es')
+				$( "#contacttxt" ).load( "https://www.alfran.es/contacto/ .vc_custom_1492679604848 .vc_tta-container" );
+			else
+				$( "#contacttxt" ).load( "https://www.alfran.es/en/contact/ .vc_custom_1492679604848 .vc_tta-container" );
 		});
 		function onBackKeyDown() {
 			window.location.href = 'home.html';

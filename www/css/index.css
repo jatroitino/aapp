@@ -22,6 +22,8 @@ a:visited {text-decoration: none;}
 /* Portrait layout (default) */
 .app {margin-bottom: 80px;display: none;}
 
+.len, .les {display: none;}
+
 h2{font-size: 20px;font-weight:bold;}
 
 /* Landscape layout (with min-width) */
@@ -66,9 +68,33 @@ nav.navbar h1 {    font-size: 20px;
 .badge-primary {
     color: #fff;
     background-color: #e40612;
-        font-size: 14px;
+        font-size: 11px;
 	    font-weight: 500;
 }
+
+#index.languages h3 {color: #fff;font-size:18px;margin-bottom: 40px;}
+
+#index.languages a.en {background: url(../img/icono-en.png) no-repeat left center; background-size: auto 50%;}
+#index.languages a.es {background: url(../img/icono-es.png) no-repeat left center; background-size: auto 50%;}
+
+
+
+#index.languages .list-group-item {
+    padding-top: 0;
+    padding-bottom: 0;}
+#index.languages .list-group-item .badge{ color: #e40612;   font-size: 20px;}
+#index.languages .list-group-item a{
+    padding-left: 70px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+	color: #e40612;
+        font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;	}	
+	
+
 
 #index {text-align:center;background-color:#e40612;}
 #index #logo {margin-top:0%;}

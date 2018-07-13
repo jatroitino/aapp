@@ -25,21 +25,26 @@
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="home.html">< Home</a>
+  <a class="len navbar-brand" href="home.html">< Home</a>
+  <a class="les navbar-brand" href="home.html">< Portada</a>
+
   <span class="navbar-text">
-      <h1>Security Data Sheets</h1>
+      <h1 class="len">Security Data Sheets</h1>
+      <h1 class="les">Fichas de seguridad</h1>
   </span>
 </nav>
     <div class="app container">
 		<div class="row">
 			<div class="col-12 btns acenter">
 				 <div class="form-group">
-					<label for="productos">Product</label>
+					<label class="len" for="productos">Product</label>
+					<label class="les" for="productos">Producto</label>
 					<select name="p" class="form-control"  id="productos" data-live-search="true" title="Search product">
 					</select>
 				</div>
 				<div class="form-group">
-					<a href="" id="qr" class="btn btn-info disabled" target="_blank"> Download </a>
+					<a href="" id="qren" class="len btn btn-info disabled" target="_blank"> Download </a>
+					<a href="" id="qres" class="les btn btn-info disabled" target="_blank"> Descargar </a>
 				</div>
 			</div>
 		</div>
@@ -57,11 +62,9 @@
         app.initialize();
 		
 		$(document).ready(function(){
-			$('#username').html(window.localStorage.getItem("username"));
-			$('#logout').click(function(){
-				window.localStorage.removeItem("username");
-				window.location.href = "index.html";
-			});
+			if (language == 'es'){
+				$('#productos').attr('title','Buscar producto');
+			}
 			$.getJSON("http://proyectosweb.info/alfranapp/home/allproducts", null, function(data) {
 				$.each(data, function(index, item) {
 					$("#productos").append(
@@ -72,9 +75,9 @@
 				});
 				$('#productos').selectpicker();
 				$('#productos').on('hidden.bs.select', function (e) {
-					console.log($('#productos').val());
 					$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$('#productos').val(), null, function(data) {
-						$('#qr').attr('href',data.qr).removeClass('disabled');
+						$('#qren').attr('href',data.qr).removeClass('disabled');
+						$('#qres').attr('href',data.qr).removeClass('disabled');
 					});
 				});
 			});

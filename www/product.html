@@ -25,7 +25,8 @@
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="tdatas.html">< Back</a>
+  <a class="len navbar-brand" href="tdatas.html">< Back</a>
+  <a class="les navbar-brand" href="tdatas.html">< Atrás</a>
   <span class="navbar-text">
       <h1></h1>
   </span>
@@ -40,15 +41,24 @@
 					  <td colspan="2" id="tmax"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Density</th>
+					  <th scope="row">
+					  <span class="len">Density</span>
+						<span class="les">Densidad</span>
+						</th>
 					  <td colspan="2" id="densidad"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. time</th>
+					  <th scope="row">
+					  <span class="len">Mix. time</span>
+						<span class="les">T. mezclado</span>
+						</th>
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. liq.(min/max)(liters)</th>
+					  <th scope="row">
+					  <span class="len">Mix. liq.(min/max)</span>
+					<span class="les">Liq. mezclado(min/max)</span>	
+					  </th>
 					  <td id="lamasadomin"></td>
 					  <td id="lamasadomax"></td>
 					</tr>
@@ -76,7 +86,10 @@
 					  <td id="mgo"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Alkalis</th>
+					  <th scope="row">
+					  <span class="len">Alkalis</span>
+					<span class="les">Alcalis</span>	
+					</th>
 					  <td id="alcalis"></td>
 					  <th scope="row">SiC</th>
 					  <td id="sic"></td>
@@ -95,7 +108,8 @@
 					</tr>
 				  </tbody>
 				</table>
-				<a href="" class="btn btn-secundary" target="_blank" id="qr">Download Safety Data Sheet (ES/EN)</a>
+				<a href="" class="len btn btn-secundary" target="_blank" id="qren">Download Safety Data Sheet (ES/EN)</a>
+				<a href="" class="les btn btn-secundary" target="_blank" id="qres">Descargar ficha de seguridad (ES/EN)</a>
 				<br><br>
 				<p>Las propiedades que aparecen en esta base de datos representan resultados promedio típicos obtenidos mediante métodos de ensayo estándar ISO (a menos que se indique lo contrario), se llevan a cabo bajo condiciones controladas y no se deben considerar especificaciones garantizadas. Las propiedades están sujetas a rangos de desviación estadística en la fabricación y Refractarios Alfran, S.A., se reserva el derecho de modificar las especificaciones y propiedades en cualquier momento sin previo aviso. Refractarios Alfran, S.A. se exime de cualquier garantía expresa o implícita, basada en esta ficha. </p>
 			</div>
@@ -139,7 +153,8 @@
 				$('#cr2o3').html(data.cr2o3);
 				$('#baso4').html(data.baso4);
 				$('#caf2').html(data.caf2);
-				$('#qr').attr('href',data.qr);
+				$('#qren').attr('href',data.qr);
+				$('#qres').attr('href',data.qr);
 				var html;
 				$.each(data, function(index, item) {
 					html += '<p>'+index+'-'+item+'</p>';
@@ -160,6 +175,10 @@
 				vars[hash[0]] = hash[1];
 			}
 			return vars;
+		}
+		
+		function onBackKeyDown() {
+			window.location.href = 'tdatas.html';
 		}
     </script>
 </body>

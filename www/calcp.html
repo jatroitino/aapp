@@ -132,7 +132,8 @@ button[data-setter]:hover { opacity: 0.5; }
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="calc.html">< Back</a>
+  <a class="len navbar-brand" href="calc.html">< Back</a>
+  <a class="les navbar-brand" href="calc.html">< Atrás</a>
   <span class="navbar-text">
       <h1></h1>
   </span>
@@ -144,26 +145,37 @@ button[data-setter]:hover { opacity: 0.5; }
 				<table class="table table-bordered">
 				  <tbody>
 					<tr>
-					  <th scope="row">Max Temp</th>
+					  <th scope="row">Max. Temp.</th>
 					  <td colspan="2" id="tmax"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Density</th>
+					  <th scope="row">
+						<span class="len">Density</span>
+						<span class="les">Densidad</span>
+						</th>
 					  <td colspan="2" id="densidad"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. time</th>
+					<th scope="row">
+					<span class="len">Mix. time</span>
+						<span class="les">T. mezclado</span>
+						
+						</th>
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
-					  <th scope="row">Mix. liq.(min/max)(liters)</th>
+					<th scope="row">
+					<span class="len">Mix. liq.(min/max)</span>
+					<span class="les">Liq. mezclado(min/max)</span>					
+					  </th>
 					  <td id="lamasadomin"></td>
 					  <td id="lamasadomax"></td>
 					</tr>
 				  </tbody>
 				</table>
 				
-				<span class="badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING WATER</span>
+				<span class="len badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING WATER</span>
+				<span class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR AGUA</span>
 			</div>
 		</div>		
 		<div class="row">
@@ -202,11 +214,7 @@ button[data-setter]:hover { opacity: 0.5; }
         app.initialize();
 		
 		$(document).ready(function(){
-			$('#username').html(window.localStorage.getItem("username"));
-			$('#logout').click(function(){
-				window.localStorage.removeItem("username");
-				window.location.href = "index.html";
-			});
+
 			$get = getUrlVars();
 			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
@@ -218,8 +226,13 @@ button[data-setter]:hover { opacity: 0.5; }
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+30)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
-				$('#lamasadomax').html(data.lamasadomax+' l');
-				$('#lamasadomin').html(data.lamasadomin+' l');
+				if (language == 'es'){
+					$('#lamasadomax').html(data.lamasadomax+' litros');
+					$('#lamasadomin').html(data.lamasadomin+' litros');
+				} else {
+					$('#lamasadomax').html(data.lamasadomax+' liters');
+					$('#lamasadomin').html(data.lamasadomin+' liters');
+				}
 				/*$('#sio2').html(data.sio2);
 				$('#al2o3').html(data.al2o3);
 				$('#tio2').html(data.tio2);

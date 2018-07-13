@@ -16,10 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var language = null;
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+		$('.app').hide().fadeIn('slow');
+		
+		language = window.localStorage.getItem("language");
+		if (language != null){
+			$('.l'+language).show();
+		}
 		$('.app').hide().fadeIn('slow');
 		var username = window.localStorage.getItem("username");
 		if (username == null && typeof ppublic == "undefined"){

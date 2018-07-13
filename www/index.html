@@ -21,7 +21,7 @@
     <title>Alfran</title>
 </head>
 
-<body id="index">
+<body id="index" class="languages">
     <div class="app container">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -30,20 +30,17 @@
 					<img src="img/logo2.png" />
 				</div>
 				<div id="loginform">
-					<h3></h3>
-					<div id="errors" class="alert alert-danger alert-dismissible fade" role="alert">
-					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					  <p></p>
-					</div>
-					<input type="text" id="login_string" name="username" class="form-control" placeholder="Email" />
-					<input type="password" id="login_pass" name="password" class="form-control" placeholder="******" />
-					
-					<!-- <input type="submit" id="login_submit" value="Login" class="btn btn-info" /> -->
-					<a class="btn btn-info" href="home.html">Login</a>
-					<p></p>
-					<a class="btn btn-warning btn-sm" href="registro.html">Sign up</a>
+					<h3>Select language</h3>
+					<ul class="list-group">
+						  <li class="list-group-item d-flex justify-content-between align-items-center" onclick="selectLanguage('en');">
+							<a class="en" href="#">English</a>
+							
+						  </li>
+						  <li class="list-group-item d-flex justify-content-between align-items-center" onclick="selectLanguage('es');">
+							<a class="es" href="#">Espa&ntilde;ol</a>
+							
+						  </li>
+					</ul>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
@@ -60,44 +57,13 @@
     </script>
 	<script>
 			$(document).ready(function(){
-				var username = window.localStorage.getItem("username");
-				if (username != null){
-					window.location.href='home.html';
-				}
-				$('#login_submit').on( 'click', function(e){
-					$.ajax({
-						type: 'post',
-						cache: false,
-						url: 'http://proyectosweb.info/alfranapp/users/ajax_attempt_login',
-						data: {
-							'login_string': $('#login_string').val(),
-							'login_pass': $('#login_pass').val()
-						},
-						dataType: 'json',
-						success: function(response){
-							console.log(response);
-							if(response.status == 1){
-															
-								window.localStorage.setItem("loggedIn", 1);
-								window.localStorage.setItem("username", response.username);
-								window.localStorage.setItem("email", response.email);
-								window.localStorage.setItem("user_id", response.user_id);
-								window.location.href = "play.html";
-
-							}else if(response.status == 0 && response.on_hold){
-							
-								$('#errors p').html('Has excedido el número máximo de intentos. Espera unos minutos antes de volver a intentar acceder.')
-								$('#errors').addClass('show');
-							}else if(response.status == 0 && response.count){
-								$('#errors p').html('Error en los datos introducidos.');
-								$('#errors').addClass('show');
-							}
-						}
-					});
-					return false;
-				});
+				
 			});
-			
+		function selectLanguage(language)
+		{
+			window.localStorage.setItem("language", language);
+			window.location.href = "login.html";
+		}
 		function onBackKeyDown() {
 			if (confirm('Are you sure you want to exit?')){
 				navigator.app.exitApp();

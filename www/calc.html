@@ -25,9 +25,12 @@
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="navbar-brand" href="home.html">< Home</a>
+  <a class="len navbar-brand" href="home.html">< Home</a>
+  <a class="les navbar-brand" href="home.html">< Portada</a>
+
   <span class="navbar-text">
-      <h1>Mixer calculator</h1>
+      <h1 class="len">Mixer calculator</h1>
+      <h1 class="les">Calculadora</h1>
   </span>
 </nav>
     <div class="app container">
@@ -35,12 +38,14 @@
 		<div class="row">
 			<div class="col-12 btns acenter">
 				 <div class="form-group">
-					<label for="productos">Product</label>
+					<label class ="len" for="productos">Product</label>
+					<label class ="les" for="productos">Producto</label>
 					<select name="p" class="form-control"  id="productos" data-live-search="true" title="Search product">
 					</select>
 				</div>
 				<div class="form-group">
-					<label for="weight">Weight</label>
+					<label class ="len" for="weight">Weight</label>
+					<label class ="les" for="weight">Peso</label>
 					<input class="form-control acenter" name="weight" id="weight" placeholder="Kg">
 				</div>
 				<div class="form-group">
@@ -63,11 +68,12 @@
         app.initialize();
 		
 		$(document).ready(function(){
-			$('#username').html(window.localStorage.getItem("username"));
-			$('#logout').click(function(){
-				window.localStorage.removeItem("username");
-				window.location.href = "index.html";
-			});
+			if (language == 'es'){
+				$('#productos').attr('title','Buscar producto');
+				$('#submit').attr('value','Seleccionar');
+			}
+				
+			
 			$.getJSON("http://proyectosweb.info/alfranapp/home/allproducts", null, function(data) {
 				$.each(data, function(index, item) {
 					$("#productos").append(

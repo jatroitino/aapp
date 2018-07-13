@@ -21,7 +21,7 @@
     <title>Alfran</title>
 </head>
 
-<body id="registro">
+<body id="index">
     <div class="app container">
 		<div class="row">
 			<div class="col-sm-2"></div>
@@ -30,17 +30,21 @@
 					<img src="img/logo2.png" />
 				</div>
 				<div id="loginform">
-					<div id="errors" class="alert alert-danger fade" role="alert">
+					<h3></h3>
+					<div id="errors" class="alert alert-danger alert-dismissible fade" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
 					  <p></p>
 					</div>
+					<input type="text" id="login_string" name="username" class="form-control" placeholder="Email" />
+					<input type="password" id="login_pass" name="password" class="form-control" placeholder="******" />
 					
-					<input type="text" id="register_user" name="username" class="form-control" placeholder="Username" />
-					<input type="text" id="register_email" name="email" class="form-control" placeholder="Email" />
-					<input type="password" id="register_pass" name="password" class="form-control" placeholder="Password" />
-					<input type="password" id="register_pass2" name="password2" class="form-control" placeholder="Repeat password" />
-					<input type="submit" id="register_submit" value="Register" class="btn btn-info" />
+					<!-- <input type="submit" id="login_submit" value="Login" class="btn btn-info" /> -->
+					<a class="btn btn-info" href="home.html">Login</a>
 					<p></p>
-					<a class="btn btn-warning btn-sm" href="login.html">Login</a>
+					<a class="len btn btn-warning btn-sm" href="registro.html">Sign up</a>
+					<a class="les btn btn-warning btn-sm" href="registro.html">Registro</a>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
@@ -57,39 +61,47 @@
     </script>
 	<script>
 			$(document).ready(function(){
-				
-				if (language == 'es'){
-					$('#register_user').attr('placeholder','Nombre de usuario');
-					$('#register_pass').attr('placeholder','Contraseña');
-					$('#register_pass2').attr('placeholder','Repite contraseña');
-					$('#register_submit').attr('value','Registrar');
-				}
-				
-				$('#register_submit').on( 'click', function(e){
+				/*var username = window.localStorage.getItem("username");
+				if (username != null){
+					window.location.href='home.html';
+				}*/
+				$('#login_submit').on( 'click', function(e){
 					$.ajax({
 						type: 'post',
 						cache: false,
-						url: 'http://proyectosweb.info/alfranpp/users/ajax_attempt_register',
+						url: 'http://proyectosweb.info/alfranapp/users/ajax_attempt_login',
 						data: {
-							'register_user': $('#register_user').val(),
-							'register_email': $('#register_email').val(),
-							'register_pass': $('#register_pass').val(),
-							'register_pass2': $('#register_pass2').val()
+							'login_string': $('#login_string').val(),
+							'login_pass': $('#login_pass').val()
 						},
 						dataType: 'json',
 						success: function(response){
+							console.log(response);
 							if(response.status == 1){
-								$('#errors p').html(response.errors);
-								$('#errors').removeClass('alert-danger').addClass('alert-success').addClass('show');
-							}else if(response.status == 0){
-								$('#errors p').html(response.errors);
-								$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+															
+								window.localStorage.setItem("loggedIn", 1);
+								window.localStorage.setItem("username", response.username);
+								window.localStorage.setItem("email", response.email);
+								window.localStorage.setItem("user_id", response.user_id);
+								window.location.href = "play.html";
+
+							}else if(response.status == 0 && response.on_hold){
+							
+								$('#errors p').html('Has excedido el número máximo de intentos. Espera unos minutos antes de volver a intentar acceder.')
+								$('#errors').addClass('show');
+							}else if(response.status == 0 && response.count){
+								$('#errors p').html('Error en los datos introducidos.');
+								$('#errors').addClass('show');
 							}
 						}
 					});
 					return false;
 				});
 			});
+			
+		function onBackKeyDown() {
+			window.location.href = 'index.html';
+		}
 		</script>
 </body>
 
