@@ -65,7 +65,10 @@
 			window.location.href = "login.html";
 		}
 		function onBackKeyDown() {
-			if (confirm('Are you sure you want to exit?')){
+			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la aplicación?';
+			else  var txtconfirm = 'Are you sure you want to exit?';
+			
+			if (confirm(txtconfirm)){
 				navigator.app.exitApp();
 			} else {
 				return false;
