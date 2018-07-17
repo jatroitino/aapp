@@ -104,15 +104,10 @@
 			});
 		});
 		function onBackKeyDown() {
-<<<<<<< HEAD
-			if (confirm('Are you sure you want to logout?')){
-				window.localStorage.removeItem("username");
-=======
 			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la sesión?';
 			else  var txtconfirm = 'Are you sure you want to logout?';
 			
 			if (confirm(txtconfirm)){
->>>>>>> 210bc81f00ca8fa3187e37a62d696f621e042a09
 				window.location.href = 'login.html';
 			} else {
 				return false;
