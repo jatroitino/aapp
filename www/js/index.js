@@ -30,7 +30,7 @@ var app = {
 		$('.app').hide().fadeIn('slow');
 		var username = window.localStorage.getItem("username");
 		if (username == null && typeof ppublic == "undefined"){
-		//	window.location.href='index.html';
+			window.location.href='login.html';
 		}
     },
     // Bind Event Listeners

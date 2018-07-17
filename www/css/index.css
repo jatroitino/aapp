@@ -108,7 +108,9 @@ nav.navbar h1 {    font-size: 20px;
 #registro {text-align:center;background-color:#e40612;}
 #registro h3{color:#fff;font-size:18px;}
 #registro #logo {margin-top:0%;}
+#registro label{    color: #fff;    font-size: 16px;}
 #registro input[type="text"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
+#registro input[type="email"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
 #registro input[type="password"]{border:1px solid #e40612;line-height:40px;width:80%;margin:0 auto;}
 
 #registro .btn-info {background: #fff;border-color:#e40612;color:#e40612;margin-top: 20px;border-radius:40px;padding:10px 40px;}

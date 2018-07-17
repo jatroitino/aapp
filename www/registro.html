@@ -33,14 +33,16 @@
 					<div id="errors" class="alert alert-danger fade" role="alert">
 					  <p></p>
 					</div>
-					
-					<input type="text" id="register_user" name="username" class="form-control" placeholder="Username" />
-					<input type="text" id="register_email" name="email" class="form-control" placeholder="Email" />
-					<input type="password" id="register_pass" name="password" class="form-control" placeholder="Password" />
-					<input type="password" id="register_pass2" name="password2" class="form-control" placeholder="Repeat password" />
+					<form id="registerForm">
+					<input type="text" id="register_user" name="register_user" class="form-control" placeholder="Username" />
+					<input type="email" id="register_email" name="register_email" class="form-control" placeholder="Email" />
+					<input type="password" id="register_pass" name="register_pass" class="form-control" placeholder="Password" />
+					<input type="password" id="register_pass2" name="register_pass2" class="form-control" placeholder="Repeat password" />
+					<p></p>
 					<input type="submit" id="register_submit" value="Register" class="btn btn-info" />
 					<p></p>
 					<a class="btn btn-warning btn-sm" href="login.html">Login</a>
+				</form>
 				</div>
 			</div>
 			<div class="col-sm-2"></div>
@@ -49,6 +51,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="https://unpkg.com/popper.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
@@ -58,37 +61,110 @@
 	<script>
 			$(document).ready(function(){
 				
+				/*if (language == 'es'){
+					$.getScript( "http://proyectosweb.info/alfranpp/js/localization/messages_es.min.js");
+				}*/
+				
+				
+				
 				if (language == 'es'){
 					$('#register_user').attr('placeholder','Nombre de usuario');
 					$('#register_pass').attr('placeholder','Contraseña');
 					$('#register_pass2').attr('placeholder','Repite contraseña');
 					$('#register_submit').attr('value','Registrar');
+					var languageOptions = {
+						messages: {
+							register_user: {
+								required: "Por favor, introduce un nombre de usuario",
+								minlength: "El nombre de usuario debe tener al menos 2 caracteres"
+							},
+							register_pass: {
+								required: "Por favor, introduce una contraseña",
+								minlength: "La contraseña debe tener al menos 5 caracteres"
+							},
+							register_pass2: {
+								required: "Por favor, introduce una contraseña",
+								minlength: "La contraseña debe tener al menos 5 caracteres",
+								equalTo: "Las contraseñas no coinciden"
+							},
+							register_email: "Por favor, introduce un email válido"
+							
+						}
+					};
+				} else {
+					var languageOptions = {
+						messages: {
+							register_user: {
+								required: "Please enter a username",
+								minlength: "Your username must consist of at least 2 characters"
+							},
+							register_pass: {
+								required: "Please provide a password",
+								minlength: "Your password must be at least 5 characters long"
+							},
+							register_pass2: {
+								required: "Please provide a password",
+								minlength: "Your password must be at least 5 characters long",
+								equalTo: "Please enter the same password as above"
+							},
+							register_email: "Please enter a valid email address"
+							
+						}
+					};
 				}
 				
-				$('#register_submit').on( 'click', function(e){
-					$.ajax({
-						type: 'post',
-						cache: false,
-						url: 'http://proyectosweb.info/alfranpp/users/ajax_attempt_register',
-						data: {
-							'register_user': $('#register_user').val(),
-							'register_email': $('#register_email').val(),
-							'register_pass': $('#register_pass').val(),
-							'register_pass2': $('#register_pass2').val()
+				var validateOptions = {
+					rules: {
+						register_user: {
+							required: true,
+							minlength: 2
 						},
-						dataType: 'json',
-						success: function(response){
-							if(response.status == 1){
-								$('#errors p').html(response.errors);
-								$('#errors').removeClass('alert-danger').addClass('alert-success').addClass('show');
-							}else if(response.status == 0){
-								$('#errors p').html(response.errors);
-								$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
-							}
+						register_pass: {
+							required: true,
+							minlength: 5
+						},
+						register_pass2: {
+							required: true,
+							minlength: 5,
+							equalTo: "#register_pass"
+						},
+						register_email: {
+							required: true,
+							email: true
 						}
-					});
-					return false;
-				});
+					},
+					submitHandler: function(form) {
+						$.ajax({
+							type: 'get',
+							cache: false,
+							url: 'http://proyectosweb.info/alfranpp/home/ajax_register_client',
+							data: {
+								'username': $('#register_user').val(),
+								'email': $('#register_email').val(),
+								'password': $('#register_pass').val(),
+								'pass_confirm': $('#register_pass2').val(),
+								'language': language
+							},
+							dataType: 'json',
+							success: function(response){
+								if(response.status == 1){
+									window.localStorage.setItem("username", $('#register_user').val());
+									window.location.href='home.html';
+								}else if(response.status == 0){ 
+									/*if (language == 'es')
+										txtError = 'Error en los datos introducidos';
+									else
+										txtError = 'Register data error';*/
+									$('#errors p').html(response.result);
+									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+								}
+							}
+						});
+					}
+				};
+				jQuery.extend(validateOptions, languageOptions);
+				$( "#registerForm" ).validate(validateOptions);
+				
 			});
 		</script>
 </body>

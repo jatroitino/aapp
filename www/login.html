@@ -40,8 +40,8 @@
 					<input type="text" id="login_string" name="username" class="form-control" placeholder="Email" />
 					<input type="password" id="login_pass" name="password" class="form-control" placeholder="******" />
 					
-					<!-- <input type="submit" id="login_submit" value="Login" class="btn btn-info" /> -->
-					<a class="btn btn-info" href="home.html">Login</a>
+					<input type="submit" id="login_submit" value="Login" class="btn btn-info" />
+					<!-- <a class="btn btn-info" href="home.html">Login</a> -->
 					<p></p>
 					<a class="len btn btn-warning btn-sm" href="registro.html">Sign up</a>
 					<a class="les btn btn-warning btn-sm" href="registro.html">Registro</a>
@@ -67,16 +67,15 @@
 				}*/
 				$('#login_submit').on( 'click', function(e){
 					$.ajax({
-						type: 'post',
+						type: 'get',
 						cache: false,
-						url: 'http://proyectosweb.info/alfranapp/users/ajax_attempt_login',
+						url: 'http://proyectosweb.info/alfranapp/home/ajax_attempt_login',
 						data: {
 							'login_string': $('#login_string').val(),
 							'login_pass': $('#login_pass').val()
 						},
 						dataType: 'json',
 						success: function(response){
-							console.log(response);
 							if(response.status == 1){
 															
 								window.localStorage.setItem("loggedIn", 1);
