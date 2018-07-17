@@ -173,9 +173,12 @@ button[data-setter]:hover { opacity: 0.5; }
 					</tr>
 				  </tbody>
 				</table>
-				
-				<span class="len badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING WATER</span>
-				<span class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR AGUA</span>
+				<div id="vibrocolado" style="display: none;">
+					<p class="len badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE VIBROCOLADO.</p>
+					<p class="les badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE VIBROCOLADO.</p>
+				</div>
+				<p class="len badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING WATER</p>
+				<p class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR AGUA</p>
 			</div>
 		</div>		
 		<div class="row">
@@ -226,6 +229,9 @@ button[data-setter]:hover { opacity: 0.5; }
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+30)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
+				if (data.vibrocolado == 1){
+					$('#vibrocolado').show();
+				}
 				if (language == 'es'){
 					$('#lamasadomax').html(data.lamasadomax+' litros');
 					$('#lamasadomin').html(data.lamasadomin+' litros');

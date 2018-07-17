@@ -82,13 +82,13 @@
 								window.localStorage.setItem("username", response.username);
 								window.localStorage.setItem("email", response.email);
 								window.localStorage.setItem("user_id", response.user_id);
-								window.location.href = "play.html";
+								window.location.href = "home.html";
 
 							}else if(response.status == 0 && response.on_hold){
 							
 								$('#errors p').html('Has excedido el número máximo de intentos. Espera unos minutos antes de volver a intentar acceder.')
 								$('#errors').addClass('show');
-							}else if(response.status == 0 && response.count){
+							}else if(response.status == 0){
 								$('#errors p').html('Error en los datos introducidos.');
 								$('#errors').addClass('show');
 							}
