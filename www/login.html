@@ -37,7 +37,7 @@
 					  </button>
 					  <p></p>
 					</div>
-					<input type="text" id="login_string" name="username" class="form-control" placeholder="Email" />
+					<input type="text" id="login_string" name="username" class="form-control" placeholder="Username" />
 					<input type="password" id="login_pass" name="password" class="form-control" placeholder="******" />
 					
 					<input type="submit" id="login_submit" value="Login" class="btn btn-info" />
@@ -65,6 +65,9 @@
 				if (username != null){
 					window.location.href='home.html';
 				}*/
+				if (language == 'es'){
+					$('#login_string').attr('placeholder','Nombre de usuario');
+				}
 				$('#login_submit').on( 'click', function(e){
 					$.ajax({
 						type: 'get',
@@ -89,7 +92,11 @@
 								$('#errors p').html('Has excedido el número máximo de intentos. Espera unos minutos antes de volver a intentar acceder.')
 								$('#errors').addClass('show');
 							}else if(response.status == 0){
-								$('#errors p').html('Error en los datos introducidos.');
+								if (language == 'es'){
+									$('#errors p').html('Error en los datos introducidos.');
+								} else {
+									$('#errors p').html('Identification error.');
+								}
 								$('#errors').addClass('show');
 							}
 						}
