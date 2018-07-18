@@ -57,10 +57,18 @@
 					<tr>
 					  <th scope="row">
 					  <span class="len">Mix. liq.(min/max)</span>
-					<span class="les">Liq. mezclado(min/max)</span>	
+					<span class="les">Liq. mezclado(min/max)</span><br>
+					<span>[100 Kg]</span>
 					  </th>
 					  <td id="lamasadomin"></td>
 					  <td id="lamasadomax"></td>
+					</tr>
+					<tr>
+					  <th scope="row">
+					  <span class="len">Compression</span>
+					<span class="les">Compresión</span>
+					  </th>
+					  <td colspan="2" id="compresion"></td>
 					</tr>
 				  </tbody>
 				</table>
@@ -68,43 +76,49 @@
 				<table class="table table-bordered">
 				  <tbody>
 					<tr>
-					  <th scope="row">SiO<sub>2</sub></th>
-					  <td id="sio2"></td>
 					  <th scope="row">Al<sub>2</sub>O<sub>3</sub></th>
 					  <td id="al2o3"></td>
+					  <th scope="row">SiO<sub>2</sub></th>
+					  <td id="sio2"></td>
 					</tr>
 					<tr>
-					  <th scope="row">TiO<sub>2</sub></th>
-					  <td id="tio2"></td>
 					  <th scope="row">Fe<sub>2</sub>O<sub>3</sub></th>
 					  <td id="fe2o3"></td>
-					</tr>
-					<tr>
 					  <th scope="row">CaO</th>
 					  <td id="cao"></td>
-					  <th scope="row">MgO</th>
-					  <td id="mgo"></td>
+<!--					  <th scope="row">TiO<sub>2</sub></th>
+					  <td id="tio2"></td>-->
 					</tr>
 					<tr>
+					  <th scope="row">MgO</th>
+					  <td id="mgo"></td>					  
 					  <th scope="row">
 					  <span class="len">Alkalis</span>
-					<span class="les">Alcalis</span>	
-					</th>
+					  <span class="les">Alcalis</span>	
+					  </th>
 					  <td id="alcalis"></td>
-					  <th scope="row">SiC</th>
-					  <td id="sic"></td>
+					</tr>
+					
+					<tr>
+					  <th scope="row" class="sic" style="display:none">SiC</th>
+					  <td id="sic" class="sic" style="display:none"></td>
+					  
+					  <th scope="row" class="baso4" style="display:none">BaSO<sub>4</sub></th>
+					  <td id="baso4" class="baso4" style="display:none"></td>
 					</tr>
 					<tr>
-					  <th scope="row">ZrO<sub>2</sub></th>
-					  <td id="zro2"></td>
-					  <th scope="row">Cr<sub>2</sub>O<sub>3</sub></th>
-					  <td id="cr2o3"></td>
+					  <th scope="row" class="zro2" style="display:none">ZrO<sub>2</sub></th>
+					  <td id="zro2" class="zro2" style="display:none"></td>
+					  
+					  <th scope="row" class="cr2o3" style="display:none">Cr<sub>2</sub>O<sub>3</sub></th>
+					  <td id="cr2o3" class="cr2o3" style="display:none"></td>
 					</tr>
 					<tr>
-					  <th scope="row">BaSO<sub>4</sub></th>
-					  <td id="baso4"></td>
-					  <th scope="row">CaF<sub>2</sub></th>
-					  <td id="caf2"></td>
+					  <th scope="row" class="caf2" style="display:none">CaF<sub>2</sub></th>
+					  <td id="caf2" class="caf2" style="display:none"></td>
+					  
+					  <th scope="row"></th>
+					  <td></td>
 					</tr>
 				  </tbody>
 				</table>
@@ -141,18 +155,36 @@
 				$('#tamasado').html(data.tamasado+' min');
 				$('#lamasadomax').html(data.lamasadomax+' l');
 				$('#lamasadomin').html(data.lamasadomin+' l');
+				$('#compresion').html(data.compresion);
 				$('#sio2').html(data.sio2);
 				$('#al2o3').html(data.al2o3);
-				$('#tio2').html(data.tio2);
+				/*$('#tio2').html(data.tio2);*/
 				$('#fe2o3').html(data.fe2o3);
 				$('#cao').html(data.cao);
 				$('#mgo').html(data.mgo);
 				$('#alcalis').html(data.alcalis);
-				$('#sic').html(data.sic);
-				$('#zro2').html(data.zro2);
-				$('#cr2o3').html(data.cr2o3);
-				$('#baso4').html(data.baso4);
-				$('#caf2').html(data.caf2);
+				
+				if (data.sic != '0.00'){
+					$('#sic').html(data.sic);
+					$('.sic').show();
+				}
+				if (data.baso4 != '0.00'){
+					$('#baso4').html(data.baso4);
+					$('.baso4').show();
+				}
+				if (data.zro2 != '0.00'){
+					$('#zro2').html(data.zro2);
+					$('.zro2').show();
+				}
+				if (data.cr2o3 != '0.00'){
+					$('#cr2o3').html(data.cr2o3);
+					$('.cr2o3').show();
+				}
+				if (data.caf2 != '0.00'){
+					$('#caf2').html(data.caf2);
+					$('.caf2').show();
+				}
+				
 				$('#qren').attr('href',data.qr);
 				$('#qres').attr('href',data.qr);
 				var html;

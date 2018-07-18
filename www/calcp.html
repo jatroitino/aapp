@@ -157,28 +157,28 @@ button[data-setter]:hover { opacity: 0.5; }
 					</tr>
 					<tr>
 					<th scope="row">
-					<span class="len">Mix. time</span>
+						<span class="len">Mix. time</span>
 						<span class="les">T. mezclado</span>
-						
-						</th>
+					</th>
 					  <td colspan="2" id="tamasado"></td>
 					</tr>
 					<tr>
 					<th scope="row">
-					<span class="len">Mix. liq.(min/max)</span>
-					<span class="les">Liq. mezclado(min/max)</span>					
-					  </th>
-					  <td id="lamasadomin"></td>
-					  <td id="lamasadomax"></td>
+						<span class="len">Mix. liq.(min/max)</span>
+						<span class="les">Liq. mezclado(min/max)</span>
+						<br><span id="weight"></span>
+					</th>
+					<td id="lamasadomin"></td>
+					<td id="lamasadomax"></td>
 					</tr>
 				  </tbody>
 				</table>
 				<div id="vibrocolado" style="display: none;">
-					<p class="len badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE VIBROCOLADO.</p>
-					<p class="les badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE VIBROCOLADO.</p>
+					<p class="len badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE COLADO/VIBROCOLADO.</p>
+					<p class="les badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE COLADO/VIBROCOLADO.</p>
 				</div>
-				<p class="len badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING WATER</p>
-				<p class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR AGUA</p>
+				<p class="len badge badge-primary" >REQUIRES 1 MINUTE OF DRY MIXING BEFORE ADDING MIX. LIQUID</p>
+				<p class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR EL LÍQUIDO DE AMASADO</p>
 			</div>
 		</div>		
 		<div class="row">
@@ -232,12 +232,25 @@ button[data-setter]:hover { opacity: 0.5; }
 				if (data.vibrocolado == 1){
 					$('#vibrocolado').show();
 				}
-				if (language == 'es'){
-					$('#lamasadomax').html(data.lamasadomax+' litros');
-					$('#lamasadomin').html(data.lamasadomin+' litros');
+				var uds = $get['uds'];
+				var weight = ($get['weight'] != '')?$get['weight']:100;
+				
+				if (uds == 'Lbs'){
+					var fweight = weight/2.2046;
 				} else {
-					$('#lamasadomax').html(data.lamasadomax+' liters');
-					$('#lamasadomin').html(data.lamasadomin+' liters');
+					var fweight = weight;
+				}
+				
+				$('#weight').html('['+weight+' '+$get['uds']+']');
+				
+				var lamasadomax = (fweight*(data.lamasadomax/100)).toFixed(2);
+				var lamasadomin = (fweight*(data.lamasadomin/100)).toFixed(2);
+				if (language == 'es'){
+					$('#lamasadomax').html(lamasadomax+' litros<br>'+(lamasadomax*0.26417205).toFixed(2)+' galones');
+					$('#lamasadomin').html(lamasadomin+' litros<br>'+(lamasadomin*0.26417205).toFixed(2)+' galones');
+				} else {
+					$('#lamasadomax').html(lamasadomax+' liters<br>'+(lamasadomax*0.26417205).toFixed(2)+' gallons');
+					$('#lamasadomin').html(lamasadomin+' liters<br>'+(lamasadomin*0.26417205).toFixed(2)+' gallons');
 				}
 				/*$('#sio2').html(data.sio2);
 				$('#al2o3').html(data.al2o3);

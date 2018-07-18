@@ -34,7 +34,7 @@
 					  <p></p>
 					</div>
 					<form id="registerForm">
-					<input type="text" id="register_user" name="register_user" class="form-control" placeholder="Username" />
+					<input type="text" id="register_user" name="register_user" class="form-control" placeholder="Name" />
 					<input type="email" id="register_email" name="register_email" class="form-control" placeholder="Email" />
 					<input type="password" id="register_pass" name="register_pass" class="form-control" placeholder="Password" />
 					<input type="password" id="register_pass2" name="register_pass2" class="form-control" placeholder="Repeat password" />
@@ -68,15 +68,15 @@
 				
 				
 				if (language == 'es'){
-					$('#register_user').attr('placeholder','Nombre de usuario');
+					$('#register_user').attr('placeholder','Nombre');
 					$('#register_pass').attr('placeholder','Contraseña');
 					$('#register_pass2').attr('placeholder','Repite contraseña');
 					$('#register_submit').attr('value','Registrar');
 					var languageOptions = {
 						messages: {
 							register_user: {
-								required: "Por favor, introduce un nombre de usuario",
-								minlength: "El nombre de usuario debe tener al menos 2 caracteres"
+								required: "Por favor, introduce un nombre",
+								minlength: "El nombre debe tener al menos 2 caracteres"
 							},
 							register_pass: {
 								required: "Por favor, introduce una contraseña",
@@ -95,8 +95,8 @@
 					var languageOptions = {
 						messages: {
 							register_user: {
-								required: "Please enter a username",
-								minlength: "Your username must consist of at least 2 characters"
+								required: "Please enter a name",
+								minlength: "Your name must consist of at least 2 characters"
 							},
 							register_pass: {
 								required: "Please provide a password",
