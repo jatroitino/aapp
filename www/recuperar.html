@@ -33,14 +33,23 @@
 					<div id="errors" class="alert alert-danger fade" role="alert">
 					  <p></p>
 					</div>
-					<form id="registerForm">
-					<input type="text" id="register_user" name="register_user" class="form-control" placeholder="Name" />
-					<input type="text" id="register_company" name="register_company" class="form-control" placeholder="Company" />
-					<input type="email" id="register_email" name="register_email" class="form-control" placeholder="Email" />
-					<input type="password" id="register_pass" name="register_pass" class="form-control" placeholder="Password" />
-					<input type="password" id="register_pass2" name="register_pass2" class="form-control" placeholder="Repeat password" />
+					<form id="recoverForm1">
+						<h3 class="len">Enter your email, we will send you a security code.</h3>
+						<h3 class="les">Escribe tu email te enviaremos un código de seguridad.</h3>
+						<input type="email" id="recover_email" name="recover_email" class="form-control" placeholder="Email" />
+						<input type="submit" id="recover_submit1" value="Recover" class="btn btn-info" />
+					</form>
 					<p></p>
-					<input type="submit" id="register_submit" value="Register" class="btn btn-info" />
+					<hr />
+					<p></p>
+					<form id="recoverForm2">
+						<h3 class="len">If you have already received the code, write it here and change your password.</h3>
+						<h3 class="les">Si ya has recibido el código, escríbelo aquí y cambia tu contraseña.</h3>
+						<input type="email" id="recover_email2" name="recover_email2" class="form-control" placeholder="Email" />
+						<input type="email" id="recover_code" name="recover_code" class="form-control" placeholder="Code" />
+						<input type="password" id="recover_pass" name="recover_pass" class="form-control" placeholder="Password" />
+						<input type="password" id="recover_pass2" name="recover_pass2" class="form-control" placeholder="Repeat password" />
+						<input type="submit" id="recover_submit2" value="Send" class="btn btn-info" />
 					<p></p>
 					<a class="btn btn-warning btn-sm" href="login.html">Login</a>
 				</form>
@@ -69,68 +78,52 @@
 				
 				
 				if (language == 'es'){
-					$('#register_user').attr('placeholder','Nombre');
-					$('#register_company').attr('placeholder','Empresa');
-					$('#register_pass').attr('placeholder','Contraseña');
-					$('#register_pass2').attr('placeholder','Repite contraseña');
-					$('#register_submit').attr('value','Registrar');
+					$('#recover_code').attr('placeholder','Código');
+					$('#recover_pass').attr('placeholder','Contraseña');
+					$('#recover_pass2').attr('placeholder','Repite contraseña');
+					$('#recover_submit').attr('value','Recuperar');
+					$('#recover_submit2').attr('value','Enviar');
 					var languageOptions = {
 						messages: {
-							register_user: {
-								required: "Por favor, introduce un nombre",
-								minlength: "El nombre debe tener al menos 2 caracteres"
+							recover_code: {
+								required: "Por favor, introduce tu código"
 							},
-							register_pass: {
+							recover_pass: {
 								required: "Por favor, introduce una contraseña",
 								minlength: "La contraseña debe tener al menos 5 caracteres"
 							},
-							register_pass2: {
+							recover_pass2: {
 								required: "Por favor, introduce una contraseña",
 								minlength: "La contraseña debe tener al menos 5 caracteres",
 								equalTo: "Las contraseñas no coinciden"
 							},
-							register_email: "Por favor, introduce un email válido"
+							recover_email: "Por favor, introduce un email válido"
 							
 						}
 					};
 				} else {
 					var languageOptions = {
 						messages: {
-							register_user: {
-								required: "Please enter a name",
-								minlength: "Your name must consist of at least 2 characters"
+							recover_code: {
+								required: "Please, enter de code"
 							},
-							register_pass: {
+							recover_pass: {
 								required: "Please provide a password",
 								minlength: "Your password must be at least 5 characters long"
 							},
-							register_pass2: {
+							recover_pass2: {
 								required: "Please provide a password",
 								minlength: "Your password must be at least 5 characters long",
 								equalTo: "Please enter the same password as above"
 							},
-							register_email: "Please enter a valid email address"
+							recover_email: "Please enter a valid email address"
 							
 						}
 					};
 				}
-				
-				var validateOptions = {
+				var validateOptions1 = {
 					rules: {
-						register_user: {
-							required: true,
-							minlength: 2
-						},
-						register_pass: {
-							required: true,
-							minlength: 5
-						},
-						register_pass2: {
-							required: true,
-							minlength: 5,
-							equalTo: "#register_pass"
-						},
-						register_email: {
+						recover_email: {
 							required: true,
 							email: true
 						}
@@ -139,19 +132,63 @@
 						$.ajax({
 							type: 'get',
 							cache: false,
-							url: 'http://proyectosweb.info/alfranpp/home/ajax_register_client',
+							url: 'http://proyectosweb.info/alfranpp/home/ajax_send_code',
 							data: {
-								'username': $('#register_user').val(),
-								'company': $('#register_company').val(),
-								'email': $('#register_email').val(),
-								'password': $('#register_pass').val(),
-								'pass_confirm': $('#register_pass2').val(),
+								'email': $('#recover_email').val(),
 								'language': language
 							},
 							dataType: 'json',
 							success: function(response){
 								if(response.status == 1){
-									window.localStorage.setItem("username", $('#register_user').val());
+									$('#errors p').html(response.result);
+									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+								}else if(response.status == 0){ 
+									/*if (language == 'es')
+										txtError = 'Error en los datos introducidos';
+									else
+										txtError = 'Register data error';*/
+									$('#errors p').html(response.result);
+									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+								}
+							}
+						});
+					}
+				};
+				var validateOptions2 = {
+					rules: {
+						recover_pass: {
+							required: true,
+							minlength: 5
+						},
+						recover_pass2: {
+							required: true,
+							minlength: 5,
+							equalTo: "#recover_pass"
+						},
+						recover_email: {
+							required: true,
+							email: true
+						},
+						recover_code: {
+							required: true
+						}
+					},
+					submitHandler: function(form) {
+						$.ajax({
+							type: 'get',
+							cache: false,
+							url: 'http://proyectosweb.info/alfranpp/home/ajax_change_password',
+							data: {
+								'code': $('#recover_code').val(),
+								'email': $('#recover_email').val(),
+								'password': $('#recover_pass').val(),
+								'pass_confirm': $('#recover_pass2').val(),
+								'language': language
+							},
+							dataType: 'json',
+							success: function(response){
+								if(response.status == 1){
+									window.localStorage.setItem("username", $('#recover_user').val());
 									window.location.href='home.html';
 								}else if(response.status == 0){ 
 									/*if (language == 'es')
@@ -166,7 +203,8 @@
 					}
 				};
 				jQuery.extend(validateOptions, languageOptions);
-				$( "#registerForm" ).validate(validateOptions);
+				$( "#recoverForm1" ).validate(validateOptions1);
+				$( "#recoverForm2" ).validate(validateOptions2);
 				
 			});
 		</script>

@@ -98,27 +98,27 @@
 					  </th>
 					  <td id="alcalis"></td>
 					</tr>
-					
-					<tr>
-					  <th scope="row" class="sic" style="display:none">SiC</th>
-					  <td id="sic" class="sic" style="display:none"></td>
-					  
-					  <th scope="row" class="baso4" style="display:none">BaSO<sub>4</sub></th>
-					  <td id="baso4" class="baso4" style="display:none"></td>
+				</table>
+				<table class="table table-bordered">
+					<tr class="sic" style="display:none">
+					  <th scope="row" colspan="2">SiC</th>
+					  <td id="sic" colspan="2"></td>
 					</tr>
-					<tr>
-					  <th scope="row" class="zro2" style="display:none">ZrO<sub>2</sub></th>
-					  <td id="zro2" class="zro2" style="display:none"></td>
-					  
-					  <th scope="row" class="cr2o3" style="display:none">Cr<sub>2</sub>O<sub>3</sub></th>
-					  <td id="cr2o3" class="cr2o3" style="display:none"></td>
+					<tr class="baso4" style="display:none">
+					  <th scope="row" colspan="2">BaSO<sub>4</sub></th>
+					  <td id="baso4" colspan="2"></td>
 					</tr>
-					<tr>
-					  <th scope="row" class="caf2" style="display:none">CaF<sub>2</sub></th>
-					  <td id="caf2" class="caf2" style="display:none"></td>
-					  
-					  <th scope="row"></th>
-					  <td></td>
+					<tr class="zro2" style="display:none">
+					  <th scope="row" colspan="2">ZrO<sub>2</sub></th>
+					  <td id="zro2" colspan="2"></td>
+					</tr>
+					<tr class="cr2o3" style="display:none">
+					  <th scope="row" colspan="2">Cr<sub>2</sub>O<sub>3</sub></th>
+					  <td id="cr2o3" colspan="2"></td>
+					</tr>
+					<tr class="caf2" style="display:none">
+					  <th scope="row" colspan="2">CaF<sub>2</sub></th>
+					  <td id="caf2" colspan="2"></td>
 					</tr>
 				  </tbody>
 				</table>
@@ -150,12 +150,27 @@
 			$get = getUrlVars();
 			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
-				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+30)+'ºF');
+				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
 				$('#tamasado').html(data.tamasado+' min');
-				$('#lamasadomax').html(data.lamasadomax+' l');
-				$('#lamasadomin').html(data.lamasadomin+' l');
-				$('#compresion').html(data.compresion);
+				
+				
+				var lamasadomax = data.lamasadomax;
+				var lamasadomin = data.lamasadomin;
+				if (language == 'es'){
+					$('#lamasadomax').html(lamasadomax+' litros<br>'+(lamasadomax*0.26417205).toFixed(2)+' galones');
+					$('#lamasadomin').html(lamasadomin+' litros<br>'+(lamasadomin*0.26417205).toFixed(2)+' galones');
+				} else {
+					$('#lamasadomax').html(lamasadomax+' liters<br>'+(lamasadomax*0.26417205).toFixed(2)+' gallons');
+					$('#lamasadomin').html(lamasadomin+' liters<br>'+(lamasadomin*0.26417205).toFixed(2)+' gallons');
+				}
+				
+				/* if (language == 'es'){
+					$('#compresion').html(data.compresion_value+' a '+data.compresion_temp + 'ºC/'+((parseInt(data.compresion_temp)*1.8)+32)+'ºF');
+				} else { */
+					$('#compresion').html(data.compresion_value+' ('+data.compresion_temp + 'ºC/'+((parseInt(data.compresion_temp)*1.8)+32)+'ºF)');
+				
+				
 				$('#sio2').html(data.sio2);
 				$('#al2o3').html(data.al2o3);
 				/*$('#tio2').html(data.tio2);*/
@@ -163,7 +178,7 @@
 				$('#cao').html(data.cao);
 				$('#mgo').html(data.mgo);
 				$('#alcalis').html(data.alcalis);
-				
+				console.log(data);
 				if (data.sic != '0.00'){
 					$('#sic').html(data.sic);
 					$('.sic').show();
