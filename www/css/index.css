@@ -182,6 +182,9 @@ nav.navbar h1 {    font-size: 20px;
     background-color: #e40612;
     border-color: #e40612;
 }
+
+.vc_tta-panel {margin-bottom:50px;}
+.vc_tta-panel-body p {margin-bottom:0px;}
 .clearable{
   position: relative;
   display: inline-block;
