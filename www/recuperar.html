@@ -41,12 +41,14 @@
 					</form>
 					<p></p>
 					<hr />
+					<div id="errors2" class="alert alert-danger fade" role="alert">
 					<p></p>
+					</div>
 					<form id="recoverForm2">
 						<h3 class="len">If you have already received the code, write it here and change your password.</h3>
 						<h3 class="les">Si ya has recibido el código, escríbelo aquí y cambia tu contraseña.</h3>
 						<input type="email" id="recover_email2" name="recover_email2" class="form-control" placeholder="Email" />
-						<input type="email" id="recover_code" name="recover_code" class="form-control" placeholder="Code" />
+						<input type="text" id="recover_code" name="recover_code" class="form-control" placeholder="Code" />
 						<input type="password" id="recover_pass" name="recover_pass" class="form-control" placeholder="Password" />
 						<input type="password" id="recover_pass2" name="recover_pass2" class="form-control" placeholder="Repeat password" />
 						<input type="submit" id="recover_submit2" value="Send" class="btn btn-info" />
@@ -70,12 +72,6 @@
     </script>
 	<script>
 			$(document).ready(function(){
-				
-				/*if (language == 'es'){
-					$.getScript( "http://proyectosweb.info/alfranpp/js/localization/messages_es.min.js");
-				}*/
-				
-				
 				
 				if (language == 'es'){
 					$('#recover_code').attr('placeholder','Código');
@@ -141,12 +137,8 @@
 							success: function(response){
 								if(response.status == 1){
 									$('#errors p').html(response.result);
-									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+									$('#errors').removeClass('alert-danger').addClass('alert-success').addClass('show');
 								}else if(response.status == 0){ 
-									/*if (language == 'es')
-										txtError = 'Error en los datos introducidos';
-									else
-										txtError = 'Register data error';*/
 									$('#errors p').html(response.result);
 									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
 								}
@@ -165,7 +157,7 @@
 							minlength: 5,
 							equalTo: "#recover_pass"
 						},
-						recover_email: {
+						recover_email2: {
 							required: true,
 							email: true
 						},
@@ -180,7 +172,7 @@
 							url: 'http://proyectosweb.info/alfranpp/home/ajax_change_password',
 							data: {
 								'code': $('#recover_code').val(),
-								'email': $('#recover_email').val(),
+								'email': $('#recover_email2').val(),
 								'password': $('#recover_pass').val(),
 								'pass_confirm': $('#recover_pass2').val(),
 								'language': language
@@ -188,21 +180,18 @@
 							dataType: 'json',
 							success: function(response){
 								if(response.status == 1){
-									window.localStorage.setItem("username", $('#recover_user').val());
-									window.location.href='home.html';
+									$('#errors2 p').html(response.result);
+									$('#errors2').removeClass('alert-danger').addClass('alert-success').addClass('show');
 								}else if(response.status == 0){ 
-									/*if (language == 'es')
-										txtError = 'Error en los datos introducidos';
-									else
-										txtError = 'Register data error';*/
-									$('#errors p').html(response.result);
-									$('#errors').removeClass('alert-success').addClass('alert-danger').addClass('show');
+									$('#errors2 p').html(response.result);
+									$('#errors2').removeClass('alert-success').addClass('alert-danger').addClass('show');
 								}
 							}
 						});
 					}
 				};
-				jQuery.extend(validateOptions, languageOptions);
+				jQuery.extend(validateOptions1, languageOptions);
+				jQuery.extend(validateOptions2, languageOptions);
 				$( "#recoverForm1" ).validate(validateOptions1);
 				$( "#recoverForm2" ).validate(validateOptions2);
 				

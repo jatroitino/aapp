@@ -74,6 +74,8 @@ nav.navbar h1 {    font-size: 20px;
 }
 
 #index.languages h3 {color: #fff;font-size:18px;margin-bottom: 40px;}
+#index .btn-link {color:#ffffff;}
+#index hr {border-color:#ffffff;}
 
 #index.languages a.en {background: url(../img/icono-en.png) no-repeat left center; background-size: auto 50%;}
 #index.languages a.es {background: url(../img/icono-es.png) no-repeat left center; background-size: auto 50%;}
