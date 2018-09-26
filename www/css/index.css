@@ -129,6 +129,7 @@ nav.navbar h1 {    font-size: 20px;
 #home a.sdatas {background: url(../img/iconos_casco.png) no-repeat left center; background-size: auto 75%;}
 #home a.contact {background: url(../img/icono_tlf.png) no-repeat left center; background-size: auto 75%;}
 #home a.blog {background: url(../img/icono_blog.png) no-repeat left center; background-size: auto 75%;}
+#home a.sel_lang {background: url(../img/icono_lang.png) no-repeat left center; background-size: auto 75%;}
 
 #home .list-group-item {
     padding-top: 0;
