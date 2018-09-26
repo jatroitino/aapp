@@ -23,7 +23,7 @@
 
 <body id="home">
 <nav class="navbar fixed-top">
-  <a class="len navbar-brand" href="#" onclick="logout();return false;">< Logout</a>
+  <a class="len navbar-brand" href="#" onclick="logout();return false;">< Close</a>
   <a class="les navbar-brand" href="#" onclick="logout();return false;">< Salir</a>
   
   <span class="navbar-text">
@@ -63,6 +63,10 @@
 					<a class="blog" href="" onclick="window.open('https://www.alfran.es/en/blog-en/','_system');">Blog</a>
 					<span class="badge badge-light">></span>
 				  </li>
+				  <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href = 'sel_lang.html';">
+					<a class="sel_lang" href="sel_lang.html">Change language</a>
+					<span class="badge badge-light">></span>
+				  </li>
 				</ul>
 				<ul class="les list-group">
 				  <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href = 'company.html';">
@@ -93,6 +97,10 @@
 					<a class="blog" href="" onclick="window.open('https://www.alfran.es/blog/','_system');">Blog</a>
 					<span class="badge badge-light">></span>
 				  </li>
+				  <li class="list-group-item d-flex justify-content-between align-items-center" onclick="window.location.href = 'sel_lang.html';">
+					<a class="sel_lang" href="sel_lang.html">Cambiar idioma</a>
+					<span class="badge badge-light">></span>
+				  </li>
 				</ul>
 			</div>
 		</div>
@@ -110,29 +118,30 @@
 		$(document).ready(function(){
 			$('#username').html(window.localStorage.getItem("username"));
 		});
+
 		function onBackKeyDown() {
-			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la sesión?';
-			else  var txtconfirm = 'Are you sure you want to logout?';
+			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la aplicación?';
+			else  var txtconfirm = 'Are you sure you want to exit?';
 			
 			if (confirm(txtconfirm)){
-				window.localStorage.removeItem("username");
-				window.location.href = "login.html";
+				navigator.app.exitApp();
 			} else {
 				return false;
 			}
 		}
 		
 		function logout(){
-			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la sesión?';
-			else  var txtconfirm = 'Are you sure you want to logout?';
+			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la aplicación?';
+			else  var txtconfirm = 'Are you sure you want to exit?';
 			
 			if (confirm(txtconfirm)){
-				window.localStorage.removeItem("username");
-				window.location.href = "login.html";
+				navigator.app.exitApp();
 			} else {
 				return false;
 			}
 		}
+		
+		
     </script>
 </body>
 

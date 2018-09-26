@@ -57,15 +57,12 @@
     </script>
 	<script>
 			$(document).ready(function(){
-				var username = window.localStorage.getItem("username");
-				if (username != null){
-					window.location.href='home.html';
-				}
+				
 			});
 		function selectLanguage(language)
 		{
 			window.localStorage.setItem("language", language);
-			window.location.href = "login.html";
+			window.location.href = "home.html";
 		}
 		function onBackKeyDown() {
 			if (language == 'es') var txtconfirm = '¿Está seguro de cerrar la aplicación?';
