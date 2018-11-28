@@ -173,6 +173,10 @@ button[data-setter]:hover { opacity: 0.5; }
 					</tr>
 				  </tbody>
 				</table>
+				<div id="tamasadozero" style="display: none;">
+					<p class="len badge badge-primary" >MIXING TIME DEPENDING ON APPLICATION.</p>
+					<p class="les badge badge-primary" >TIEMPO DE AMASADO SEGÚN APLICACIÓN.</p>
+				</div>
 				<div id="vibrocolado" style="display: none;">
 					<p class="len badge badge-primary" >MIXING TIME FOR THIS CASTABLE WILL ONLY APPLY WHEN INSTALLED BY CASTING/VIBROCASTING.</p>
 					<p class="les badge badge-primary" >EL TIEMPO DE MEZCLADO DE ESTE HORMIGÓN SÓLO ES APLICABLE PARA CUANDO ÉSTE SEA INSTALADO MEDIANTE COLADO/VIBROCOLADO.</p>
@@ -228,7 +232,12 @@ button[data-setter]:hover { opacity: 0.5; }
 				
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
-				$('#tamasado').html(data.tamasado+' min');
+				if (data.tamasado == '0.00'){
+					$('#tamasado').html('(*)');
+					$('#tamasadozero').show();
+				} else {
+					$('#tamasado').html(data.tamasado+' min');
+				}
 				if (data.vibrocolado == 1){
 					$('#vibrocolado').show();
 				}

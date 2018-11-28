@@ -122,8 +122,12 @@
 					</tr>
 				  </tbody>
 				</table>
-				<a href="" class="len btn btn-secundary" target="_blank" id="qren">Download Safety Data Sheet (ES/EN)</a>
-				<a href="" class="les btn btn-secundary" target="_blank" id="qres">Descargar ficha de seguridad (ES/EN)</a>
+				<div id="tamasadozero" style="display: none;">
+					<p class="len badge badge-primary" >MIXING TIME DEPENDING ON APPLICATION.</p>
+					<p class="les badge badge-primary" >TIEMPO DE AMASADO SEGÚN APLICACIÓN.</p>
+				</div>
+				<a href="" class="len btn btn-secundary" target="_blank" id="qren">Download Safety and Application Data Sheet (ES/EN)</a>
+				<a href="" class="les btn btn-secundary" target="_blank" id="qres">Descargar ficha de seguridad y aplicación (ES/EN)</a>
 				<br><br>
 				<p class="les">Las propiedades que aparecen en esta base de datos representan resultados promedio típicos obtenidos mediante métodos de ensayo estándar ISO (a menos que se indique lo contrario), se llevan a cabo bajo condiciones controladas y no se deben considerar especificaciones garantizadas. Las propiedades están sujetas a rangos de desviación estadística en la fabricación y Refractarios Alfran, S.A., se reserva el derecho de modificar las especificaciones y propiedades en cualquier momento sin previo aviso. Refractarios Alfran, S.A. se exime de cualquier garantía expresa o implícita, basada en esta ficha.</p>
 				<p class="len">The properties that appear in this database represent typical average results obtained by standard ISO test methods (unless otherwise indicated), are carried out under controlled conditions and should not be considered guaranteed specifications. The properties are subject to statistical deviation ranges in manufacturing and Refractarios Alfran, S.A., reserves the right to modify the specifications and properties at any time without prior notice. Refractarios Alfran, S.A. It is exempt from any express or implied warranty, based on this record.</p>
@@ -153,8 +157,12 @@
 				$('h1').html(data.description);
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');
-				$('#tamasado').html(data.tamasado+' min');
-				
+				if (data.tamasado == '0.00'){
+					$('#tamasado').html('(*)');
+					$('#tamasadozero').show();
+				} else {
+					$('#tamasado').html(data.tamasado+' min');
+				}
 				
 				var lamasadomax = data.lamasadomax;
 				var lamasadomin = data.lamasadomin;
