@@ -175,7 +175,7 @@ button[data-setter]:hover { opacity: 0.5; }
 				</table>
 				<div id="tamasadozero" style="display: none;">
 					<p class="len badge badge-primary" >MIXING TIME DEPENDING ON APPLICATION.</p>
-					<p class="les badge badge-primary" >TIEMPO DE AMASADO SEGÚN APLICACIÓN.</p>
+					<p class="les badge badge-primary" >TIEMPO DE MEZCLADO SEGÚN APLICACIÓN.</p>
 				</div>
 				<div id="vibrocolado" style="display: none;">
 					<p class="len badge badge-primary" >MIXING TIME FOR THIS CASTABLE WILL ONLY APPLY WHEN INSTALLED BY CASTING/VIBROCASTING.</p>
@@ -185,7 +185,7 @@ button[data-setter]:hover { opacity: 0.5; }
 				<p class="les badge badge-primary" >REQUIERE 1 MINUTO DE MEZCLADO EN SECO ANTES DE AÑADIR EL LÍQUIDO DE AMASADO</p>
 			</div>
 		</div>		
-		<div class="row">
+		<div class="row" id="reloj">
 			<div class="col-12 btns acenter">		
 				<div class="circle">
 				  <svg width="300" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
@@ -235,6 +235,7 @@ button[data-setter]:hover { opacity: 0.5; }
 				if (data.tamasado == '0.00'){
 					$('#tamasado').html('(*)');
 					$('#tamasadozero').show();
+					$('#reloj').hide();
 				} else {
 					$('#tamasado').html(data.tamasado+' min');
 				}
