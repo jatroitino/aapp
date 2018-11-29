@@ -26,6 +26,20 @@ a:visited {text-decoration: none;}
 
 h2{font-size: 20px;font-weight:bold;}
 
+.table-bordered {
+    border: 1px solid #F7958E;
+}
+.table-bordered td, .table-bordered th {
+    border: 1px solid #F7958E;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(247,149,142,.3);
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {}
