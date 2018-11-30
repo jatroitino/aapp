@@ -40,6 +40,10 @@ hr {
     border-top: 1px solid rgba(247,149,142,.3);
 }
 
+.list-group-item {
+    border: 1px solid rgba(247,149,142,.3);
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {}
