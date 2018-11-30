@@ -223,7 +223,7 @@ button[data-setter]:hover { opacity: 0.5; }
 		$(document).ready(function(){
 
 			$get = getUrlVars();
-			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
+			$.getJSON("http://www.alfran.es/app/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
 				$('#tmax').html(data.tmax+' ºC');
 				wholeTime = data.tamasado*60;

@@ -153,7 +153,7 @@
 				window.location.href = "index.html";
 			});
 			$get = getUrlVars();
-			$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$get['p'], null, function(data) {
+			$.getJSON("http://www.alfran.es/app/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
 				$('#densidad').html(data.densidad+' g/cc');

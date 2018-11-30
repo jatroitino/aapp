@@ -65,7 +65,7 @@
 			if (language == 'es'){
 				$('#productos').attr('title','Buscar producto');
 			}
-			$.getJSON("http://proyectosweb.info/alfranapp/home/allproducts", null, function(data) {
+			$.getJSON("http://www.alfran.es/app/home/allproducts", null, function(data) {
 				$.each(data, function(index, item) {
 					$("#productos").append(
 						$("<option></option>")
@@ -75,7 +75,7 @@
 				});
 				$('#productos').selectpicker();
 				$('#productos').on('hidden.bs.select', function (e) {
-					$.getJSON("http://proyectosweb.info/alfranapp/home/product/"+$('#productos').val(), null, function(data) {
+					$.getJSON("http://www.alfran.es/app/home/product/"+$('#productos').val(), null, function(data) {
 						$('#qren').attr('href',data.qr).removeClass('disabled');
 						$('#qres').attr('href',data.qr).removeClass('disabled');
 					});
