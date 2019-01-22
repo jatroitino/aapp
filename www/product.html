@@ -156,7 +156,7 @@
 			$.getJSON("http://www.alfran.es/app/home/product/"+$get['p'], null, function(data) {
 				$('h1').html(data.description);
 				$('#tmax').html(data.tmax+'ºC / '+((parseInt(data.tmax)*1.8)+32)+'ºF');
-				$('#densidad').html(data.densidad+' g/cc');
+				$('#densidad').html(data.densidad+' g/cm<sup>3</sup>');
 				if (data.tamasado == '0.00'){
 					$('#tamasado').html('(*)');
 					$('#tamasadozero').show();
